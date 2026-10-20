@@ -114,9 +114,9 @@ html.intro-on,html.intro-on body{overflow:hidden}
 @keyframes riseT{from{opacity:0;transform:translateY(24px)}}
 @keyframes rise{from{opacity:0;transform:translateY(24px) rotate(-6.1deg)}}
 @media (max-width:760px){
-  .stage{aspect-ratio:390/560}
-  .title{top:26%;font-size:12.5cqw}
-  .tag{left:18%;top:40%;width:64cqw;padding:var(--s2)}
+  .stage{aspect-ratio:auto;height:60svh;min-height:400px;max-height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding-top:24px}
+  .title{position:relative;top:auto;left:auto;right:auto;font-size:12.5cqw}
+  .tag{position:relative;top:auto;left:auto;margin-left:12cqw;width:64cqw;padding:var(--s2)}
   .tag .date{font-size:15cqw}
   .tag .btn{height:34px;padding:0 10px;font-size:11px}
 }
@@ -154,6 +154,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .mapbox .cafe:hover{transform:translateY(calc(-50% - 2px))}
 .mapbox .cafe.bump{animation:cbump .5s cubic-bezier(.3,1.6,.5,1)}
 @keyframes cbump{0%{transform:translateY(-50%) scale(1)}35%{transform:translateY(calc(-50% - 10px)) scale(1.15)}100%{transform:translateY(-50%) scale(1)}}
+@media (max-width:700px){.wheel image{display:none}}
 .wheel .spinw{animation:wspin 1.2s linear infinite;transform-box:fill-box;transform-origin:center}
 @keyframes wspin{to{transform:rotate(360deg)}}
 .mapbox .cafe .badge{width:30px;height:30px;font-size:var(--t-xs)}
@@ -287,7 +288,35 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .stopchip span{overflow:hidden;text-overflow:ellipsis;max-width:12ch}
 .gamebtns{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s2);margin-top:var(--s3)}
 .gamebtns .btn{min-width:min(260px,100%)}
-@media (max-width:700px){.gbar{justify-content:center}.gstats{order:-1;width:100%;justify-content:center}.board{height:660px}.rules{gap:12px!important}.rules .big{font-size:26px}.how li{font-size:12px}.coinrules{gap:8px}.coinrules .col{padding:10px}.coinrules li{font-size:12px;gap:6px}.coinrules img{width:28px;height:28px}.coinrules h4{font-size:12px}.medal{width:66px;height:66px}.medal.big{width:88px;height:88px}.gamebtns .btn{width:100%}.overlay{place-items:start center}}
+@media (max-width:700px){.gbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:10px}.gbar>*{min-width:0}.gright{display:contents}.gbar .cafe{order:1}.gbar .sound{order:2;width:auto;justify-self:stretch}.gstats{order:3;justify-content:center;gap:12px;padding:0 8px;white-space:nowrap;font-size:12px}.gbar .stopchip{order:4;max-width:160px}.gbar .stopchip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.board{height:660px}.rules{gap:12px!important}.rules .big{font-size:26px}.how li{font-size:12px}.coinrules{gap:8px}.coinrules .col{padding:10px}.coinrules li{font-size:12px;gap:6px}.coinrules img{width:28px;height:28px}.coinrules h4{font-size:12px}.medal{width:66px;height:66px}.medal.big{width:88px;height:88px}.gamebtns .btn{width:100%}.overlay{place-items:start center}}
+
+/* jogo no telemóvel: tudo num só ecrã — barra numa linha e tela à medida do ecrã */
+@media (max-width:700px){
+  .gbar{grid-template-columns:minmax(0,1fr) auto 44px 44px;gap:6px;padding:8px}
+  .gbar .cafe,.gbar .stopchip,.gbar .sound,.gstats{height:44px}
+  .gbar .cafe{order:1;padding:0 8px 0 4px;gap:6px;font-size:12px;overflow:hidden}
+  .gbar .cafe>span:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .gbar .cafe .badge{width:30px;height:30px;font-size:11px}
+  .gbar .cafe small{font-size:10px;overflow:hidden;text-overflow:ellipsis}
+  .gstats{order:2;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;padding:0 8px;font-size:11px;line-height:1.15}
+  .gbar .stopchip{order:3;max-width:none;width:44px;padding:0;justify-content:center}
+  .gbar .stopchip img{width:32px;height:32px}
+  .gbar .stopchip span{display:none}
+  .gbar .sound{order:4;width:44px;justify-self:auto}
+  .board{height:calc(100svh - 150px);min-height:440px;max-height:660px}
+  .overlay{padding:12px}
+  .overlay .box{gap:6px}
+  .overlay .big{font-size:24px}
+  .overlay p{font-size:14px}
+  .overlay .small{font-size:12px}
+  .overlay .cafe{padding:10px 14px;font-size:18px}
+  .overlay .cafe .badge{width:40px;height:40px;font-size:14px}
+  .overlay .btn{height:48px}
+  .rules{gap:8px!important}
+  .rules .big{font-size:22px}
+  .rules .btn{height:50px;min-width:200px}
+  .steps i{width:12px;height:12px}
+}
 
 /* 06 ranking */
 .rank{max-width:880px;margin:0 auto;border:var(--sw) solid var(--ink);border-radius:var(--r);background:var(--cream);padding:var(--pad)}
@@ -307,7 +336,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .rank tr.me td:first-child{border-radius:var(--r) 0 0 var(--r)}
 .rank tr.me td:last-child{border-radius:0 var(--r) var(--r) 0}
 .rankfoot{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:var(--s2);font-size:var(--t-xs)}
-@media (max-width:700px){.rank thead th{font-size:var(--t-xs);padding:10px 4px}.rank td{font-size:var(--t-s);padding:12px 4px}.rank td.pl img{width:28px;height:28px}}
+@media (max-width:700px){.rank{padding:16px}.rank thead th{font-size:11px;padding:12px 6px;letter-spacing:.03em}.rank thead th:first-child,.rank td:first-child{padding-left:16px;text-align:left}.rank thead th:last-child,.rank td:last-child{padding-right:16px;text-align:right}.rank td{font-size:var(--t-s);padding:12px 4px}.rank td.pl img{width:28px;height:28px}}
 
 footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-block:var(--s2) var(--s4);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:var(--t-xs);text-align:center}
 </style>
@@ -593,7 +622,7 @@ select(1);
     if(i<pts.length-1){const q=pts[i+1], d=Math.hypot(q[0]-p[0],q[1]-p[1]); plan.push({type:"move",a:p,b:q,t0:t,t1:t+d/speed}); t+=d/speed;}
   });
   const total=t; let start=null, lastStop=-1;
-  function bump(i){const c=mapChips[i]; if(!c) return; c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump");}
+  function bump(i){const c=mapChips[i]; if(!c||i===0) return; c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump");}
   /* encolhe a roda quando se aproxima de um café, para nunca espreitar por baixo da caixa */
   const svg=wheel.ownerSVGElement, R=26, FADE=34;
   function hideScale(x,y){
@@ -608,6 +637,7 @@ select(1);
     const k=Math.min(1,Math.max(0,(best-R*.2)/FADE));
     return k*k*(3-2*k);
   }
+  const mobWheel=matchMedia("(max-width:700px)");
   function frame(now){
     if(start===null) start=now;
     const tt=((now-start)/1000)%total;
@@ -615,7 +645,7 @@ select(1);
     let x,y;
     if(seg.type==="stop"){[x,y]=seg.p; if(lastStop!==seg.i){lastStop=seg.i; bump(seg.i);}}
     else{const k=(tt-seg.t0)/(seg.t1-seg.t0); x=seg.a[0]+(seg.b[0]-seg.a[0])*k; y=seg.a[1]+(seg.b[1]-seg.a[1])*k; lastStop=-1;}
-    wheel.setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})`);
+    wheel.setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})${mobWheel.matches?" scale(3)":""}`);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
@@ -900,7 +930,15 @@ function start(){
   ginetaLv=new Set([0,1,2,3,4,5,6].sort(()=>Math.random()-.5).slice(0,5));
   shut(CAFES[0].n,()=>{setBg(0);paintLevel();levelScreen()});
 }
+/* no telemóvel, encaixa a janela do jogo no ecrã (logo abaixo do cabeçalho) */
+function fitGame(){
+  if(!matchMedia("(max-width:700px)").matches) return;
+  const g=$("game"), top=document.querySelector(".top"), off=(top?top.offsetHeight:0)+8;
+  const y=g.getBoundingClientRect().top+scrollY-off;
+  if(Math.abs(y-scrollY)>4) scrollTo({top:y,behavior:"smooth"});
+}
 function play(){
+  fitGame();
   if(busy) return;
   clearBoard();
   lvlPts=0; left=15; $("time").textContent=left;
@@ -938,7 +976,7 @@ async function finish(won){
     : r==="nobest" ? `O teu recorde continua a ser ${myBest} pontos.`
     : "Pontuação guardada neste dispositivo.";
 }
-ovBox.addEventListener("click",e=>{if(e.target.closest("[data-start]")){audio();music.load();start()}});
+ovBox.addEventListener("click",e=>{if(e.target.closest("[data-start]")){audio();music.load();fitGame();start()}});
 paintSound();
 $("soundBtn").addEventListener("click",()=>{
   soundOn=!soundOn; store.set("gineta.sound",soundOn); paintSound();
