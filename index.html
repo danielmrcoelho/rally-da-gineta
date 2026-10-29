@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Rally da Gineta 2026 · 19.12 · 7 cafés de Valpedre às Termas de São Vicente.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="/site.webmanifest?v=3">
 <meta name="theme-color" content="#EAE9E2">
 <meta name="apple-mobile-web-app-title" content="Gineta">
 <meta property="og:type" content="website">
@@ -889,8 +892,44 @@ async function initDb(){
 }
 initDb();
 
+/* ---------- Supabase (versão do Vercel): partilha quem vai e a classificação ---------- */
+const SUPA_URL="https://ysvkbqpdfatgivkufilu.supabase.co", SUPA_KEY="sb_publishable_s2qa2egXKdaLWlyeO6Gvjg_fs0_0GDB";
+let supa=false;
+const devId=(()=>{let d=store.get("gineta.device"); if(!d){d=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2)); store.set("gineta.device",d)} return d})();
+function sh(extra){return Object.assign({apikey:SUPA_KEY,Authorization:"Bearer "+SUPA_KEY,"Content-Type":"application/json"},extra||{})}
+async function supaPull(){
+  try{
+    const [a,b]=await Promise.all([
+      fetch(SUPA_URL+"/rest/v1/jogadores?select=device&vai=eq.true",{headers:sh()}),
+      fetch(SUPA_URL+"/rest/v1/jogadores?select=device,nome,avatar,melhor&melhor=gt.0&order=melhor.desc&limit=10",{headers:sh()})]);
+    if(!a.ok||!b.ok) throw 0;
+    const vai=await a.json(), top=await b.json();
+    rsvpShared=true; rsvpCount=vai.length; paintRsvp();
+    shared=true; uid=devId; rows=top.map(r=>({id:r.device,name:r.nome,av:r.avatar||0,best:r.melhor}));
+    const me=top.find(r=>r.device===devId); if(me) myBest=Math.max(myBest,me.melhor||0);
+    renderRank();
+  }catch(e){}
+}
+async function supaPush(){
+  if(!supa||!player) return;
+  try{
+    await fetch(SUPA_URL+"/rest/v1/jogadores?on_conflict=device",{method:"POST",headers:sh({Prefer:"resolution=merge-duplicates,return=minimal"}),
+      body:JSON.stringify({device:devId,nome:String(player.name).slice(0,10),avatar:player.av|0,vai:!!going,melhor:myBest|0,atualizado:new Date().toISOString()})});
+    supaPull();
+  }catch(e){}
+}
+async function initSupa(){
+  if(supa||db||!SUPA_KEY||SUPA_KEY.indexOf("{{")===0) return;
+  supa=true;
+  try{ const r=await fetch(SUPA_URL+"/rest/v1/jogadores?select=vai,melhor&device=eq."+encodeURIComponent(devId),{headers:sh()}); const j=r.ok?await r.json():[];
+    if(j[0]){ myBest=Math.max(myBest,j[0].melhor||0); if(j[0].vai&&!going){going=true;store.set("gineta.vou",true)} } }catch(e){}
+  supaPull(); setInterval(supaPull,20000);
+}
+setTimeout(initSupa,1500);
+
 let writing=false, again=false;
 async function syncProfile(){
+  if(supa){supaPush();return}
   if(!db||!uid||!player) return;
   if(writing){again=true;return}
   writing=true;
@@ -905,6 +944,7 @@ async function saveScore(score){
     else {local[i].av=player.av; local[i].best=Math.max(local[i].best,score)}
     store.set("gineta.local",local);
   }
+  if(supa&&player){ if(score>myBest){myBest=score; await supaPush(); return "shared"} renderRank(); return "nobest" }
   if(!db||!uid||!player){renderRank();return "local"}
   if(score<=myBest){renderRank();return "nobest"}
   myBest=score;
