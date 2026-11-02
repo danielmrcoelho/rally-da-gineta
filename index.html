@@ -380,6 +380,12 @@ main{padding-bottom:48px}
 @media (max-width:760px){.hw2{font-size:34px}}
 @media (prefers-reduced-motion:reduce){.hero.go .phw2,.hw2{animation:none!important;opacity:1}}
 .reelw{display:none!important}
+/* fotos instantâneas: moldura branca com a margem de baixo maior, espalhadas umas por cima das outras */
+.ph.col.inst{height:var(--h)!important;box-sizing:border-box;padding:6% 6% 24%;background:#F4F2EC;border:1px solid rgba(13,13,13,.22);border-radius:2px}
+.ph.col.inst img{position:absolute!important;left:calc(var(--w) * .06)!important;top:calc(var(--w) * .06)!important;width:calc(var(--w) * .88)!important;height:calc(var(--h) - var(--w) * .30)!important;max-width:none!important;max-height:none!important;object-fit:cover;display:block}
+.ph.col.inst .cap{position:absolute;left:var(--cx);bottom:calc(var(--w) * .05);max-width:84%;font:400 calc(var(--w) * .11)/1 "Permanent Marker","Comic Neue","Marker Felt",cursive;color:#161616;white-space:nowrap;overflow:hidden;transform:rotate(var(--cr));transform-origin:left center;letter-spacing:.01em}
+/* topo do iPhone (por trás da hora e da bateria) escuro enquanto se vêem as fotos; o conteúdo continua com o fundo claro do body */
+html.on-hero{background:#0E0E0E}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -1898,25 +1904,24 @@ async function shareCard(won,tt){
   const IMS=["a-fee623199c.webp","a-c79f49effe.webp","a-ee1e96d7d9.webp","a-c352f9d4a2.webp","a-eb0206dca0.webp","a-e6bff99fbf.webp","a-123060f75a.webp","a-67329c18d6.webp","a-9dcfb20911.webp","a-199c0f842b.webp","a-e397eba932.webp","a-bf187bc57d.webp","a-c934a4269a.webp","a-cf89558a85.webp","a-dbf87d777b.webp","a-6c38126757.webp"];
   const D=["M18 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z", "M14 10l4 10M22 6l1 10M30 10l-4 9", "M10 80c10-14 22-14 30 0", "M74 14c8-6 18 4 10 12M70 22c10 0 16 8 12 16", "M80 70l3 7 7 3-7 3-3 7-3-7-7-3 7-3z", "M8 50q6-6 12 0t12 0 12 0", "M84 84l-6-6M90 74l-8-2M76 92l-2-8", "M12 20h10M17 15v10M70 82h10M75 77v10", "M30 22c22-14 52-6 50 18-2 26-48 30-56 8"], W=["valpedre", "bebe finos!", "amigos", "termas!", "19.12", "mais um!", "saúde!", "a malta", "super bock", "gineta!", "o zé paga", "vandamme", "rally!", "lendas", "até às termas", "fininho?"];
   const mob=matchMedia("(max-width:760px)").matches; const PICS=mob?IMS:IM;
-  let lastW=0;
+  let lastW=0; const SEED=1+Math.floor(Math.random()*2147483000), CAPOFF=Math.floor(Math.random()*24);
   function build(){
     const Wd=reel.clientWidth, Hd=reel.clientHeight; if(!Wd||!Hd) return;
     lastW=Wd;
-    let seed=7; const rnd2=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
-    const cols=mob?3:6, rows=mob?5:3, cw=Wd/cols, ch=Hd/rows, side=Math.max(cw,ch)*1.45;
+    let seed=SEED; const rnd2=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+    const cols=mob?4:8, rows=mob?5:3, cw=Wd/cols, ch=Hd/rows, side=0, cardW=Math.max(cw*1.75,ch*1.62*.68), cardH=cardW/.68;
     /* ordem das fotos baralhada para não haver repetidas lado a lado */
     const ord=[...Array(PICS.length).keys()].sort(()=>rnd2()-.5);
     const cells=[]; for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) cells.push([r,c]);
     const P=cells.map(([r,c],n)=>{
       const i=ord[n%ord.length];
       const cx=(c+.5)*cw+(rnd2()-.5)*.24*cw, cy=(r+.5)*ch+(rnd2()-.5)*.24*ch;
-      return {n,i,r,cx,cy,rot:(rnd2()*12-6).toFixed(1),z:1+Math.floor(rnd2()*20),tape:rnd2()<.7,tr:(rnd2()*16-8).toFixed(0),hr:(rnd2()*12-6).toFixed(0),word:null};
+      return {n,i,r,cx,cy,rot:(rnd2()*40-20).toFixed(1),z:1+Math.floor(rnd2()*20),tape:rnd2()<.7,tr:(rnd2()*16-8).toFixed(0),hr:(rnd2()*12-6).toFixed(0),word:null};
     });
+    const CAP=["valpedre","bebe finos!","os de sempre","termas!","19.12","mais um!","saúde!","a malta","super bock","gineta!","o zé paga","vandamme","rally!","lendas","até às termas","fininho?","café do zé","natal","bora!","1 só fino...","7 cafés","sem limites","os maiores","é hoje!"];
     const items=P.map(p=>{
       const {n,i,cx,cy}=p, k=n, d1=D[(i+k)%D.length], d2=D[(i+k+4)%D.length];
-      const L=cx-side/2, R=cx+side/2, pad=side*.08;
-      const pos=p.left?`left:${Math.max(pad,-L+14).toFixed(0)}px`:`left:auto;right:${Math.max(pad,R-Wd+14).toFixed(0)}px;transform-origin:right bottom`;
-      return `<figure class="ph col" style="left:${L.toFixed(0)}px;top:${(cy-side/2).toFixed(0)}px;width:${side.toFixed(0)}px;height:${side.toFixed(0)}px;z-index:${p.z};--rot:${p.rot}deg;--i:${n}"><img src="${PICS[i]}" alt="" decoding="async">${p.tape?`<i class="tape" style="--tr:${p.tr}deg"></i>`:""}<svg class="sc" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" style="--k:${k}" d="${d1}"/><path pathLength="1" style="--k:${k+2}" d="${d2}"/></svg></figure>`;
+      return `<figure class="ph col inst" style="left:${(cx-cardW/2).toFixed(0)}px;top:${(cy-cardH/2).toFixed(0)}px;width:${cardW.toFixed(0)}px;--w:${cardW.toFixed(0)}px;--h:${cardH.toFixed(0)}px;z-index:${p.z};--rot:${p.rot}deg;--i:${n}"><img src="${PICS[i]}" alt="" decoding="async"><b class="cap" style="--cr:${(((n*7)%9)-4)}deg;--cx:${8+((n*13)%22)}%">${CAP[(n+CAPOFF)%CAP.length]}</b></figure>`;
     });
     reel.innerHTML=items.join("");
     /* 4 palavras de cada lado, em lugares fixos e afastadas do logo */
