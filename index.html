@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="/site.webmanifest?v=3">
-<meta name="theme-color" content="#EAE9E2">
+<meta name="theme-color" content="#0E0E0E">
 <meta name="apple-mobile-web-app-title" content="Gineta">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://rally-da-gineta.vercel.app/">
@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://rally-da-gineta.vercel.app/og-image.png">
 <title>rally da gineta 2026</title>
-<link rel="preload" as="image" href="a-f6954130cf.webp"><link rel="preload" as="image" href="a-57e8d17c1b.webp"><link rel="preload" as="image" href="a-0bc3da14bb.webp"><link rel="preload" as="image" href="a-3a3ea4782c.webp"><link rel="preload" as="image" href="a-f4c1b4a7ef.webp"><link rel="preload" as="image" href="a-069e7cb983.webp"></head>
+<link rel="preload" as="image" href="a-f6954130cf.webp" media="(min-width:761px)"><link rel="preload" as="image" href="a-57e8d17c1b.webp" media="(min-width:761px)"><link rel="preload" as="image" href="a-0bc3da14bb.webp" media="(min-width:761px)"><link rel="preload" as="image" href="a-3a3ea4782c.webp" media="(min-width:761px)"><link rel="preload" as="image" href="a-f4c1b4a7ef.webp" media="(min-width:761px)"><link rel="preload" as="image" href="a-069e7cb983.webp" media="(min-width:761px)"><link rel="preload" as="image" href="a-fee623199c.webp" media="(max-width:760px)"><link rel="preload" as="image" href="a-c79f49effe.webp" media="(max-width:760px)"><link rel="preload" as="image" href="a-ee1e96d7d9.webp" media="(max-width:760px)"><link rel="preload" as="image" href="a-c352f9d4a2.webp" media="(max-width:760px)"><link rel="preload" as="image" href="a-eb0206dca0.webp" media="(max-width:760px)"><link rel="preload" as="image" href="a-e6bff99fbf.webp" media="(max-width:760px)"></head>
 <body>
 <title>rally da gineta 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -339,6 +339,9 @@ main{padding-bottom:48px}
 .sheet .x svg{width:18px;height:18px}
 .sheet .no{align-self:center;margin-top:2px;padding:8px 12px;border:0;background:none;color:var(--ink);opacity:.7;font:inherit;font-size:13px;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .sheet .no:hover{opacity:1}
+/* topo do ecrã (barra de estado do iPhone) da mesma cor que a página por baixo */
+html.on-hero,html.on-hero body{background-color:#0E0E0E}
+html.on-hero main>section{background-color:var(--bg)}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -1027,7 +1030,12 @@ function startRain(){
   if(reduce){end();return}
   document.documentElement.classList.add("intro-on");
   setTimeout(()=>el.classList.add("hit"),450);
-  setTimeout(end,1500);
+  const t0=Date.now();
+  function ready(){
+    const ims=[...document.querySelectorAll("#reel img")].slice(0,10);
+    return ims.length&&ims.every(i=>i.complete);
+  }
+  (function wait(){ if(done) return; if((Date.now()-t0>1500&&ready())||Date.now()-t0>4000) end(); else setTimeout(wait,120); })();
   $("skipIntro").addEventListener("click",end);
   el.addEventListener("click",end);
 })();
@@ -1170,12 +1178,22 @@ const links=[...document.querySelectorAll(".nav a")];
     if(fromEl) fromEl.classList.remove("on");
     toEl.classList.add("on"); if(anim) toEl.classList.add(fwd?"in-next":"in-prev");
     scrollTo({top:0,behavior:"instant"});
-    cur=i;
+    cur=i; topTint();
     links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+id));
     try{ if(history.replaceState) history.replaceState(null,"","#"+id); }catch(e){}
     setTimeout(()=>{ if(fromEl){fromEl.classList.remove("leaving","out-next","out-prev");fromEl.style.top=""} toEl.classList.remove("in-next","in-prev"); dispatchEvent(new Event("resize")); if(opts.then) opts.then(); }, anim?560:0);
   }
   window.goPage=show;
+  function topTint(){
+    const st=document.querySelector(".hero .stage");
+    const on=(!paged||cur===0)&&st&&scrollY<st.offsetHeight-90;
+    document.documentElement.classList.toggle("on-hero",!!on);
+    let m=document.querySelector('meta[name="theme-color"]');
+    if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}
+    m.content=on?"#0E0E0E":"#EAE9E2";
+  }
+  addEventListener("scroll",topTint,{passive:true});
+  topTint();
   // links internos
   document.addEventListener("click",e=>{
     if(!paged) return;
@@ -1294,7 +1312,6 @@ function setGoing(v){
   paintRsvp(); syncProfile();
 }
 $("rsvpBtn").addEventListener("click",()=>{
-  if(!going&&!player&&!store.get("gineta.vouNome")){ askName(); return; }
   setGoing(true); goingSheet();
 });
 /* calendário e whatsapp */
@@ -1466,9 +1483,10 @@ const music=(()=>{
   let buf=null, loading=null, srcNode=null, gain=null, on=false, offset=0, startedAt=0;
   function load(a){
     if(buf||loading) return loading;
-    const bin=atob(SRC.split(",")[1]), u=new Uint8Array(bin.length);
-    for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i);
-    loading=new Promise((res,rej)=>a.decodeAudioData(u.buffer,res,rej)).then(b=>{buf=b;return b}).catch(()=>{loading=null});
+    const raw=SRC.indexOf("data:")===0
+      ? Promise.resolve((()=>{const bin=atob(SRC.split(",")[1]), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u.buffer})())
+      : fetch(SRC).then(r=>r.arrayBuffer());
+    loading=raw.then(ab=>new Promise((res,rej)=>a.decodeAudioData(ab,res,rej))).then(b=>{buf=b;return b}).catch(()=>{loading=null});
     return loading;
   }
   function begin(a){
@@ -1839,8 +1857,9 @@ async function shareCard(won,tt){
 (function(){
   const reel=$("reel"); if(!reel) return;
   const IM=["a-f6954130cf.webp","a-57e8d17c1b.webp","a-0bc3da14bb.webp","a-3a3ea4782c.webp","a-f4c1b4a7ef.webp","a-069e7cb983.webp","a-f0761d0025.webp","a-5e00af4502.webp","a-2570322174.webp","a-82ddba957b.webp","a-c4566caec6.webp","a-9eefe69422.webp","a-044aea2284.webp","a-c402415078.webp","a-f9db5a255d.webp","a-cd18b61205.webp"];
+  const IMS=["a-fee623199c.webp","a-c79f49effe.webp","a-ee1e96d7d9.webp","a-c352f9d4a2.webp","a-eb0206dca0.webp","a-e6bff99fbf.webp","a-123060f75a.webp","a-67329c18d6.webp","a-9dcfb20911.webp","a-199c0f842b.webp","a-e397eba932.webp","a-bf187bc57d.webp","a-c934a4269a.webp","a-cf89558a85.webp","a-dbf87d777b.webp","a-6c38126757.webp"];
   const D=["M18 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z", "M14 10l4 10M22 6l1 10M30 10l-4 9", "M10 80c10-14 22-14 30 0", "M74 14c8-6 18 4 10 12M70 22c10 0 16 8 12 16", "M80 70l3 7 7 3-7 3-3 7-3-7-7-3 7-3z", "M8 50q6-6 12 0t12 0 12 0", "M84 84l-6-6M90 74l-8-2M76 92l-2-8", "M12 20h10M17 15v10M70 82h10M75 77v10", "M30 22c22-14 52-6 50 18-2 26-48 30-56 8"], W=["valpedre", "bebe finos!", "amigos", "termas!", "19.12", "mais um!", "saúde!", "a malta", "super bock", "gineta!", "o zé paga", "vandamme", "rally!", "lendas", "até às termas", "fininho?"];
-  const mob=matchMedia("(max-width:760px)").matches, rows=mob?4:3;
+  const mob=matchMedia("(max-width:760px)").matches, rows=mob?4:3; const PICS=mob?IMS:IM;
   let seed=7; const rnd2=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
   for(let r=0;r<rows;r++){
     const row=document.createElement("div"); row.className="rrow"; row.style.setProperty("--r",r);
@@ -1851,7 +1870,7 @@ async function shareCard(won,tt){
       const i=(r*5+k*3)%IM.length, sz=.82+rnd2()*.42, rot=(rnd2()*10-5).toFixed(1);
       const d1=D[(i+k)%D.length], d2=D[(i+k+4)%D.length];
       const tape=rnd2()<.75, word=rnd2()<.6;
-      items.push(`<figure class="ph" style="--s:${sz.toFixed(2)};--rot:${rot}deg;--dy:${(rnd2()*16-8).toFixed(0)}%"><img src="${IM[i]}" alt="">${tape?`<i class="tape" style="--tr:${(rnd2()*16-8).toFixed(0)}deg"></i>`:""}<svg class="sc" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" style="--k:${k}" d="${d1}"/><path pathLength="1" style="--k:${k+2}" d="${d2}"/></svg>${word?`<span class="hw" style="--hr:${(rnd2()*16-8).toFixed(0)}deg">${W[(i+r)%W.length]}</span>`:""}</figure>`);
+      items.push(`<figure class="ph" style="--s:${sz.toFixed(2)};--rot:${rot}deg;--dy:${(rnd2()*16-8).toFixed(0)}%"><img src="${PICS[i]}" alt="" decoding="async">${tape?`<i class="tape" style="--tr:${(rnd2()*16-8).toFixed(0)}deg"></i>`:""}<svg class="sc" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" style="--k:${k}" d="${d1}"/><path pathLength="1" style="--k:${k+2}" d="${d2}"/></svg>${word?`<span class="hw" style="--hr:${(rnd2()*16-8).toFixed(0)}deg">${W[(i+r)%W.length]}</span>`:""}</figure>`);
     }
     track.innerHTML=items.join("")+items.join("");
     row.appendChild(track); reel.appendChild(row);
