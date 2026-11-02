@@ -344,13 +344,23 @@ html.on-hero,html.on-hero body{background-color:#0E0E0E}
 html.on-hero main>section{background-color:var(--bg)}
 /* sem a margem branca de cima: as outras páginas descem só o necessário para não ficarem por baixo da barra */
 @media (max-width:760px){
-  html.paged .hero ~ .sec{padding-top:calc(100px + env(safe-area-inset-top,0px))!important}
-  .top{padding-top:calc(30px + env(safe-area-inset-top,0px))!important}
+  html.paged .hero ~ .sec{padding-top:calc(124px + env(safe-area-inset-top,0px))!important}
+  .top{padding-top:calc(52px + env(safe-area-inset-top,0px))!important}
 }
 /* as fotos tapam o palco todo: fundo escuro por trás e fotos maiores, sem buracos */
 .hero .stage{background:#121212!important}
 .ph{height:calc(100% * (.5 + var(--s) * .62))!important}
 .rrow{margin-block:-3.5%!important;height:calc(114% / var(--rows,3))!important}
+/* colagem: fotos fixas umas por cima das outras, com um balanço suave */
+.reel{inset:0!important;display:block!important}
+.hero.go .reel{animation:none!important}
+.ph.col{position:absolute;margin:0!important;aspect-ratio:auto;transform:none!important;rotate:var(--rot);opacity:0}
+.hero.go .ph.col{animation:colIn .7s cubic-bezier(.2,1.25,.4,1) calc(var(--i) * .05s) both,colFloat var(--fd) ease-in-out calc(.8s + var(--i) * -.37s) infinite alternate}
+@keyframes colIn{from{opacity:0;scale:1.25}to{opacity:1;scale:1}}
+@keyframes colFloat{from{translate:0 0;rotate:var(--rot)}to{translate:var(--fx) var(--fy);rotate:calc(var(--rot) + var(--fr))}}
+.hero.go .ph.col{opacity:1}
+@media (max-width:760px){.ph.col .hw{font-size:26px}}
+@media (prefers-reduced-motion:reduce){.hero.go .ph.col{animation:none}}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -1862,28 +1872,35 @@ async function shareCard(won,tt){
   else new MutationObserver((m,o)=>{if(hero.classList.contains("go")){o.disconnect();run()}}).observe(hero,{attributes:true,attributeFilter:["class"]});
 })();
 
-/* ---------- início: faixas de fotos sempre a passar da esquerda para a direita ---------- */
+/* ---------- início: colagem de fotos umas por cima das outras, a mexer devagar ---------- */
 (function(){
   const reel=$("reel"); if(!reel) return;
   const IM=["a-f6954130cf.webp","a-57e8d17c1b.webp","a-0bc3da14bb.webp","a-3a3ea4782c.webp","a-f4c1b4a7ef.webp","a-069e7cb983.webp","a-f0761d0025.webp","a-5e00af4502.webp","a-2570322174.webp","a-82ddba957b.webp","a-c4566caec6.webp","a-9eefe69422.webp","a-044aea2284.webp","a-c402415078.webp","a-f9db5a255d.webp","a-cd18b61205.webp"];
   const IMS=["a-fee623199c.webp","a-c79f49effe.webp","a-ee1e96d7d9.webp","a-c352f9d4a2.webp","a-eb0206dca0.webp","a-e6bff99fbf.webp","a-123060f75a.webp","a-67329c18d6.webp","a-9dcfb20911.webp","a-199c0f842b.webp","a-e397eba932.webp","a-bf187bc57d.webp","a-c934a4269a.webp","a-cf89558a85.webp","a-dbf87d777b.webp","a-6c38126757.webp"];
   const D=["M18 14l3 8 8 3-8 3-3 8-3-8-8-3 8-3z", "M14 10l4 10M22 6l1 10M30 10l-4 9", "M10 80c10-14 22-14 30 0", "M74 14c8-6 18 4 10 12M70 22c10 0 16 8 12 16", "M80 70l3 7 7 3-7 3-3 7-3-7-7-3 7-3z", "M8 50q6-6 12 0t12 0 12 0", "M84 84l-6-6M90 74l-8-2M76 92l-2-8", "M12 20h10M17 15v10M70 82h10M75 77v10", "M30 22c22-14 52-6 50 18-2 26-48 30-56 8"], W=["valpedre", "bebe finos!", "amigos", "termas!", "19.12", "mais um!", "saúde!", "a malta", "super bock", "gineta!", "o zé paga", "vandamme", "rally!", "lendas", "até às termas", "fininho?"];
-  const mob=matchMedia("(max-width:760px)").matches, rows=mob?4:3; const PICS=mob?IMS:IM;
-  let seed=7; const rnd2=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
-  for(let r=0;r<rows;r++){
-    const row=document.createElement("div"); row.className="rrow"; row.style.setProperty("--r",r);
-    row.style.setProperty("--dur",(mob?38:52)+r*9+"s");
-    const track=document.createElement("div"); track.className="rtrack";
-    const items=[]; const n=mob?7:9;
-    for(let k=0;k<n;k++){
-      const i=(r*5+k*3)%IM.length, sz=.82+rnd2()*.42, rot=(rnd2()*10-5).toFixed(1);
+  const mob=matchMedia("(max-width:760px)").matches; const PICS=mob?IMS:IM;
+  let lastW=0;
+  function build(){
+    const Wd=reel.clientWidth, Hd=reel.clientHeight; if(!Wd||!Hd) return;
+    lastW=Wd;
+    let seed=7; const rnd2=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
+    const cols=mob?3:6, rows=mob?5:3, cw=Wd/cols, ch=Hd/rows, side=Math.max(cw,ch)*1.45;
+    /* ordem das fotos baralhada para não haver repetidas lado a lado */
+    const ord=[...Array(PICS.length).keys()].sort(()=>rnd2()-.5);
+    const cells=[]; for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) cells.push([r,c]);
+    const items=cells.map(([r,c],n)=>{
+      const i=ord[n%ord.length], k=n;
+      const cx=(c+.5)*cw+(rnd2()-.5)*.24*cw, cy=(r+.5)*ch+(rnd2()-.5)*.24*ch;
+      const rot=(rnd2()*12-6).toFixed(1), z=1+Math.floor(rnd2()*20);
       const d1=D[(i+k)%D.length], d2=D[(i+k+4)%D.length];
-      const tape=rnd2()<.75, word=rnd2()<.6;
-      items.push(`<figure class="ph" style="--s:${sz.toFixed(2)};--rot:${rot}deg;--dy:${(rnd2()*16-8).toFixed(0)}%"><img src="${PICS[i]}" alt="" decoding="async">${tape?`<i class="tape" style="--tr:${(rnd2()*16-8).toFixed(0)}deg"></i>`:""}<svg class="sc" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" style="--k:${k}" d="${d1}"/><path pathLength="1" style="--k:${k+2}" d="${d2}"/></svg>${word?`<span class="hw" style="--hr:${(rnd2()*16-8).toFixed(0)}deg">${W[(i+r)%W.length]}</span>`:""}</figure>`);
-    }
-    track.innerHTML=items.join("")+items.join("");
-    row.appendChild(track); reel.appendChild(row);
+      const tape=rnd2()<.7, word=rnd2()<.5;
+      const fx=(rnd2()*10-5).toFixed(1), fy=(rnd2()*10-5).toFixed(1), fr=(rnd2()*2.4-1.2).toFixed(2), fd=(4+rnd2()*3).toFixed(1);
+      return `<figure class="ph col" style="left:${(cx-side/2).toFixed(0)}px;top:${(cy-side/2).toFixed(0)}px;width:${side.toFixed(0)}px;height:${side.toFixed(0)}px;z-index:${z};--rot:${rot}deg;--fx:${fx}px;--fy:${fy}px;--fr:${fr}deg;--fd:${fd}s;--i:${n}"><img src="${PICS[i]}" alt="" decoding="async">${tape?`<i class="tape" style="--tr:${(rnd2()*16-8).toFixed(0)}deg"></i>`:""}<svg class="sc" viewBox="0 0 100 100" preserveAspectRatio="none"><path pathLength="1" style="--k:${k}" d="${d1}"/><path pathLength="1" style="--k:${k+2}" d="${d2}"/></svg>${word?`<span class="hw" style="--hr:${(rnd2()*16-8).toFixed(0)}deg">${W[(i+r)%W.length]}</span>`:""}</figure>`;
+    });
+    reel.innerHTML=items.join("");
   }
+  build();
+  let rt; addEventListener("resize",()=>{clearTimeout(rt); rt=setTimeout(()=>{ if(Math.abs(reel.clientWidth-lastW)>40) build(); },200)});
 })();
 /* cerveja: começa 2 s depois de o título aparecer e fica cheia no fim */
 (function(){
