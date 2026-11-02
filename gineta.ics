@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Rally da Gineta//PT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:rally-da-gineta-2026@rally-da-gineta.vercel.app
+DTSTAMP:20261102T000000Z
+DTSTART:20261219T130000Z
+DTEND:20261219T230000Z
+SUMMARY:Rally da Gineta
+LOCATION:Café do Zé\, Valpedre\, Penafiel
+DESCRIPTION:7 cafés de Valpedre às Termas de São Vicente. Se puderes\, leva ração para a associação de animais. https://rally-da-gineta.vercel.app
+URL:https://rally-da-gineta.vercel.app
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Amanhã é o Rally da Gineta!
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Rally da Gineta daqui a 2 horas
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
