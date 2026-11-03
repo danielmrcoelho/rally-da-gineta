@@ -353,7 +353,100 @@ html .hero .stage{height:calc(56.25vw + 52px)!important}
   html .hero .stage{height:calc(125vw + 40px + 130px + env(safe-area-inset-top,0px))!important}
   .hvid{top:calc(130px + env(safe-area-inset-top,0px))!important}
   .tick{top:calc(125vw - 15px + 130px + env(safe-area-inset-top,0px))!important}
-  .hvid{-webkit-mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.06) 4%,rgba(0,0,0,.2) 8%,rgba(0,0,0,.45) 13%,rgba(0,0,0,.72) 18%,rgba(0,0,0,.92) 23%,#000 28%)!important;mask-image:linear-gradient(to bottom,transparent 0,rgba(0,0,0,.06) 4%,rgba(0,0,0,.2) 8%,rgba(0,0,0,.45) 13%,rgba(0,0,0,.72) 18%,rgba(0,0,0,.92) 23%,#000 28%)!important}
+}
+/* ---------- card de apresentação com o vídeo ---------- */
+.hero{--vt:96px;--vw:min(1100px,calc(100vw - 48px));--vh:calc(var(--vw) * .5625)}
+html .hero .stage{height:calc(var(--vt) + var(--vh) + 70px)!important}
+.vcard{position:absolute;left:50%;top:var(--vt);width:var(--vw);height:var(--vh);transform:translateX(-50%);z-index:3;display:block;border-radius:28px;overflow:hidden;border:3px solid var(--ink);background:#E6E6E1;color:var(--cream);text-decoration:none;box-shadow:0 10px 30px rgba(13,13,13,.14);transition:transform .2s ease}
+.vcard:hover{transform:translateX(-50%) translateY(-3px)}
+.vcard:active{transform:translateX(-50%) scale(.985)}
+.vcard:focus-visible{outline:3px solid var(--yellow);outline-offset:4px}
+.vc-media{position:absolute;inset:0}
+.vcard .hvid{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;transform:none!important;-webkit-mask-image:none!important;mask-image:none!important;opacity:1!important;animation:none!important;z-index:0!important}
+.vc-media::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(13,13,13,.25) 0,transparent 25%),linear-gradient(to bottom,rgba(13,13,13,.25) 0,transparent 20%)}
+.vcard .tg{position:absolute;left:22px;top:20px;display:flex;flex-wrap:wrap;gap:6px;z-index:2}
+.vcard .tg i{font-style:normal;font-weight:700;font-size:13px;line-height:1;padding:6px 11px;border-radius:999px;border:2px solid var(--ink);color:var(--ink);background:var(--cream)}
+.vcard .go{position:absolute;right:18px;top:18px;z-index:2;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--yellow);color:var(--ink)}
+.vcard .go svg{width:24px;height:24px}
+.vc-txt{position:absolute;left:22px;right:22px;bottom:44px;z-index:2}
+.vc-txt b{display:block;font-size:clamp(40px,6vw,84px);line-height:.92;letter-spacing:-.02em;font-weight:900}
+.vc-txt small{display:block;margin-top:8px;font-size:15px;font-weight:700;opacity:.9}
+.hero .tick{top:calc(var(--vt) + var(--vh) - 30px)!important;left:50%!important;right:auto!important;width:auto!important;height:auto!important;transform:translateX(-50%);background:transparent!important;border:0!important;z-index:7}
+.hero .tick .tick-btn{position:static;transform:none}
+@media (max-width:760px){
+  .hero{--vt:calc(108px + env(safe-area-inset-top,0px));--vw:calc(100vw - 24px);--vh:calc(var(--vw) * 1.25)}
+  html .hero .stage{height:calc(var(--vt) + var(--vh) + 50px)!important}
+  .vcard{border-radius:28px}
+  .vcard .tg{left:16px;top:16px}.vcard .tg i{font-size:11px;padding:5px 9px}
+  .vcard .go{width:42px;height:42px;right:14px;top:14px}.vcard .go svg{width:20px;height:20px}
+  .vc-txt{left:18px;right:18px;bottom:40px}
+  .vc-txt b{font-size:44px}.vc-txt small{font-size:12px}
+  .hero .tick{top:calc(var(--vt) + var(--vh) - 26px)!important}
+}
+/* ================= revisão de espaçamentos: uma grelha, uma margem, um ritmo ================= */
+:root{--maxw:1100px;--narrow:760px;--gut:clamp(16px,3.4vw,40px);--secgap:96px}
+/* topo: o logo e o menu alinham com as margens do conteúdo */
+html body .top{padding-left:var(--gut)!important;padding-right:var(--gut)!important}
+html body .top .bar{max-width:var(--maxw)!important;padding:0!important}
+/* largura única do conteúdo */
+html body .hero ~ .sec>.wrap,html body footer .wrap{max-width:var(--maxw)!important;padding-left:0!important;padding-right:0!important;width:calc(100% - 2 * var(--gut))!important;margin-left:auto!important;margin-right:auto!important}
+html body .mapbox,html body .about,html body .game{max-width:var(--maxw)!important;width:100%!important}
+html body .reg,html body .welcome,html body .rank{max-width:var(--narrow)!important;margin-left:auto!important;margin-right:auto!important}
+html body .about{margin-bottom:0!important}
+/* card do vídeo com a mesma largura */
+.hero{--vw:min(var(--maxw),calc(100vw - 2 * var(--gut)))!important}
+/* ritmo vertical igual entre secções */
+@media (min-width:761px){
+  html body .hero ~ .sec{padding-top:var(--secgap)!important;padding-bottom:0!important}
+  html body #percurso{margin-top:0!important;padding-top:calc(var(--secgap) - 32px)!important}
+  html body .hero ~ .sec .h2{margin-top:0!important}
+  html body #percurso .lead{margin:34px 0 28px!important}
+  html body #jogo .gbtns,html body #jogo .gamebtns{margin-top:28px!important}
+  html body footer{margin-top:var(--secgap)!important}
+  html body footer .wrap{padding-block:20px 32px!important}
+}
+/* telemóvel: margem de 16px em tudo e um respiro fixo por baixo do menu */
+@media (max-width:760px){
+  :root{--gut:16px}
+  .hero{--vt:calc(52px + 50px + 16px + env(safe-area-inset-top,0px))!important;--vw:calc(100vw - 32px)!important}
+  html body .top .bar{padding:0 2px 0 18px!important}
+  html body .stack{padding-left:16px!important;padding-right:16px!important;padding-top:6px!important}
+  html body .tabbar{left:16px!important;right:16px!important}
+  html.paged body .hero ~ .sec{padding-top:calc(52px + 50px + 20px + env(safe-area-inset-top,0px))!important}
+  html.paged body .hero ~ .sec>.wrap{width:calc(100% - 32px)!important}
+}
+/* telemóvel: mapa mais alto, ocupa o espaço da página */
+@media (max-width:760px){
+  html body .mapinner{aspect-ratio:auto!important;height:clamp(360px,calc(100svh - 470px),560px)!important}
+  html body #percurso .lead{margin:0 0 14px!important}
+  html body .mapbox .callout{margin-top:28px!important}
+}
+/* classificação: foto e nome sempre na mesma linha vertical, ao centro */
+.rank td.pl .who{justify-content:flex-start!important;width:min(220px,100%);margin:0 auto;text-align:left}
+.rank td.pl{text-align:center}
+.rank tr.empty td{padding:34px 12px!important;text-align:center!important;font-size:var(--t-m);border-bottom:0}
+.rank tr.empty td b{display:block;font-size:20px;margin-bottom:4px}
+.rank tr.empty td span{font-weight:400;opacity:.75;font-size:14px}
+/* telemóvel: "eu vou" dentro do card, no canto inferior direito */
+@media (max-width:760px){
+  html .hero .stage{height:calc(var(--vt) + var(--vh) + 22px)!important}
+  .hero .tick{top:auto!important;left:auto!important;transform:none!important;right:calc(16px + 16px)!important;bottom:calc(22px + 16px)!important}
+  html body .stack{padding-top:8px!important}
+}
+/* "eu vou" no canto superior direito do card (no lugar da seta) */
+html body .hero .tick{top:calc(var(--vt) + 16px)!important;bottom:auto!important;left:auto!important;right:calc((100vw - var(--vw)) / 2 + 16px)!important;transform:none!important}
+html body .vcard .tg{max-width:calc(100% - 260px);top:32px}
+@media (min-width:761px){html .hero .stage{height:calc(var(--vt) + var(--vh))!important}html body #percurso{padding-top:var(--secgap)!important}}
+/* telemóvel: os cartões sobem para cima do vídeo */
+@media (max-width:760px){
+  html body .hero .tick{top:calc(var(--vt) + 14px)!important;right:30px!important}
+  html body .tick .rsvp{height:44px!important;font-size:16px!important;padding:0 6px 0 16px!important}
+  html body .tick .rsvp b{height:32px!important;min-width:44px!important;font-size:14px!important}
+  html body .vcard .tg{max-width:calc(100% - 180px);left:14px;top:14px}
+  html .hero .stage{height:calc(var(--vt) + var(--vh) - 90px)!important}
+  html body .stack{position:relative;z-index:8!important;padding-top:0!important}
+  html body .stack a:first-child{box-shadow:0 -8px 20px rgba(13,13,13,.18)!important}
+  html body .hero,html body .hero .stage{overflow:visible!important}
 }
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
@@ -567,6 +660,10 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .plus.neg{color:var(--bad)}
 @keyframes up{to{transform:translateY(-50px);opacity:0}}
 /* explosão geométrica: um anel e raios de pontos iguais */
+.burst{position:absolute;width:0;height:0;z-index:6;pointer-events:none;--c:var(--ink)}
+.burst.bad{--c:var(--bad)}
+.burst .ring{position:absolute;left:-12px;top:-12px;width:24px;height:24px;border:var(--sw) solid var(--c);border-radius:50%;animation:ringOut .45s ease-out forwards}
+.burst i{position:absolute;left:calc(var(--s) / -2);top:calc(var(--s) / -2);width:var(--s);height:var(--s);border-radius:50%;background:var(--c);animation:dot .5s var(--dl) cubic-bezier(.2,.8,.3,1) both}
 @keyframes ringOut{to{transform:scale(4);opacity:0}}
 @keyframes dot{0%{transform:translate(0,0) scale(.4)}60%{transform:translate(calc(var(--x) * .85),calc(var(--y) * .85)) scale(1)}100%{transform:translate(var(--x),var(--y)) scale(0)}}
 /* estore do café: fecha e abre entre níveis */
@@ -796,7 +893,7 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
 <g class="pop fb" style="--d:3.4s"><g class="eye fb"><path class="cls-5" d="M1377.19,125.54l-3.21-.91c-4.21-1.2-8.74-1.09-12.89.26-3.52.34-7.9,2.25-12.1,8.13-.6.84-2,2.8-2.4,5.6-.75,5.4,2.49,10.39,8.25,12.72,2.85,1.15,5.8,1.72,8.65,1.72,3.63,0,7.11-.92,10.05-2.75,3.74-2.33,6.45-6.17,7.42-10.54.9-4.05.21-8.12-1.96-11.44l-1.82-2.79Z"/></g></g>
 <g class="pop fb" style="--d:3.5s"><g class="eye fb"><path class="cls-5" d="M1442.47,98.25l-1.78-2.4-2.9-.72c-3.96-.99-8.23-.88-12.15.26-4.1.34-8.2,2.74-11.64,6.95-.64.79-2.16,2.64-2.59,5.41-.83,5.23,2.39,9.94,8.22,12.01,2.71.96,5.46,1.44,8.12,1.44,3.35,0,6.55-.76,9.31-2.27,3.86-2.1,6.71-5.85,7.62-10.01.84-3.82.05-7.6-2.22-10.66Z"/></g></g>
 <g class="pop fb" style="--d:2.90s"><g class="spot fb" style="--i:0"><ellipse class="cls-3" cx="109.91" cy="390.69" rx="28.9" ry="21.05"/></g></g><g class="pop fb" style="--d:2.99s"><g class="spot fb" style="--i:1"><ellipse class="cls-4" cx="198.43" cy="335.98" rx="24.47" ry="17.82"/></g></g><g class="pop fb" style="--d:3.08s"><g class="spot fb" style="--i:2"><ellipse class="cls-4" cx="268.38" cy="345.22" rx="9.02" ry="12.39"/></g></g><g class="pop fb" style="--d:3.17s"><g class="spot fb" style="--i:3"><ellipse class="cls-2" cx="533.36" cy="260.3" rx="17.37" ry="23.85" transform="translate(-9.65 499.82) rotate(-49.82)"/></g></g><g class="pop fb" style="--d:3.26s"><g class="spot fb" style="--i:4"><ellipse class="cls-8" cx="671.94" cy="170.22" rx="20.33" ry="27.91" transform="translate(-8.76 301.06) rotate(-25.1)"/></g></g><g class="pop fb" style="--d:3.35s"><g class="spot fb" style="--i:5"><ellipse class="cls-4" cx="747.4" cy="249.06" rx="43.86" ry="23.69" transform="translate(74.87 659.36) rotate(-49.82)"/></g></g><g class="pop fb" style="--d:3.44s"><g class="spot fb" style="--i:6"><ellipse class="cls-3" cx="863.17" cy="241.4" rx="25.95" ry="18.9"/></g></g><g class="pop fb" style="--d:3.53s"><g class="spot fb" style="--i:7"><ellipse class="cls-8" cx="892.4" cy="144.16" rx="29.55" ry="21.52" transform="translate(-10.05 196.59) rotate(-12.5)"/></g></g><g class="pop fb" style="--d:3.62s"><g class="spot fb" style="--i:8"><ellipse class="cls-4" cx="982.79" cy="260.3" rx="18.81" ry="27.39" transform="translate(-33.04 218.9) rotate(-12.5)"/></g></g><g class="pop fb" style="--d:3.71s"><g class="spot fb" style="--i:9"><ellipse class="cls-7" cx="1102.22" cy="173.72" rx="29.55" ry="20.29" transform="translate(200 830.27) rotate(-45)"/></g></g><g class="pop fb" style="--d:3.80s"><g class="spot fb" style="--i:10"><ellipse class="cls-4" cx="1203.87" cy="241.4" rx="18.81" ry="27.39" transform="translate(-23.71 266.31) rotate(-12.5)"/></g></g>
-</svg></div><span class="ring" aria-hidden="true"></span><img class="stamp" src="a-e37b7c2e04.webp" alt=""><button class="skip" type="button" id="skipIntro">Saltar</button></div>
+</svg></div><span class="ring" aria-hidden="true"></span><img class="stamp" src="a-e37b7c2e04.webp" alt=""></div>
 
 <header class="top">
   <div class="bar">
@@ -846,7 +943,7 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
       <p class="lead">Toca num café para ver a especialidade.</p>
       <div class="mapscroll">
         <div class="mapbox"><div class="mapinner" id="chips" role="group" aria-label="Mapa do percurso, de Valpedre às Termas de São Vicente">
-          <svg class="map" viewBox="60 160 1300 880" aria-hidden="true">
+          <svg class="map" viewBox="60 160 1300 880" preserveAspectRatio="none" aria-hidden="true">
             <polyline class="route" points="178,280 687,280 236,576 236,897 520,897 844,847 1215,1001"/>
             <path id="routePath" d="M178,280 L687,280 L236,576 L236,897 L520,897 L844,847 L1215,1001" fill="none" stroke="none"/>
             <text class="place" x="826" y="280" dominant-baseline="central">valpedre</text>
@@ -1026,7 +1123,6 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
     return !v||v.readyState>=2;
   }
   (function wait(){ if(done) return; if((Date.now()-t0>1500&&ready())||Date.now()-t0>4000) end(); else setTimeout(wait,120); })();
-  $("skipIntro").addEventListener("click",end);
   el.addEventListener("click",end);
 })();
 
@@ -1113,12 +1209,23 @@ select(1);
     let x,y;
     if(seg.type==="stop"){[x,y]=seg.p; if(lastStop!==seg.i){lastStop=seg.i; bump(seg.i);}}
     else{const k=(tt-seg.t0)/(seg.t1-seg.t0); x=seg.a[0]+(seg.b[0]-seg.a[0])*k; y=seg.a[1]+(seg.b[1]-seg.a[1])*k; lastStop=-1;}
-    wheel.setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)})${mobWheel.matches?" scale(2.6)":" scale(1.15)"}`);
+    wheel.setAttribute("transform",`translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(1 ${(1/(window.MAPK||1)).toFixed(3)})${mobWheel.matches?" scale(2.6)":" scale(1.15)"}`);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 })();
 
+/* mapa mais alto no telemóvel: compensa o esticão vertical nos nomes e na roda */
+(function(){
+  const box=document.getElementById("chips"); if(!box) return;
+  const texts=[...box.querySelectorAll(".map .place")];
+  function fit(){
+    const W=box.clientWidth,H=box.clientHeight; if(!W||!H) return;
+    const k=(H/880)/(W/1300); window.MAPK=k;
+    texts.forEach(t=>{const x=+t.getAttribute("x"),y=+t.getAttribute("y"); t.setAttribute("transform",Math.abs(k-1)<.01?"":`translate(${x} ${y}) scale(1 ${(1/k).toFixed(3)}) translate(${-x} ${-y})`)});
+  }
+  fit(); addEventListener("resize",fit); if(window.ResizeObserver) new ResizeObserver(fit).observe(box);
+})();
 /* ---------- Evento ---------- */
 document.querySelectorAll(".flip button").forEach(b=>b.addEventListener("click",()=>b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")));
 
@@ -1268,21 +1375,26 @@ let local=store.get("gineta.local")||[];
 function renderRank(){
   const list = shared ? rows : [...local].sort((a,b)=>b.best-a.best).slice(0,10);
   const body=$("rankBody"); body.innerHTML="";
-  const n=Math.max(5,list.length);
+  if(!list.length){
+    const tr=document.createElement("tr"); tr.className="empty";
+    tr.innerHTML='<td colspan="3"><b>ainda ninguém jogou — sê o primeiro!</b><span>joga o vandamme e o teu nome aparece aqui.</span></td>';
+    body.appendChild(tr);
+  }
+  const n=list.length;
   for(let i=0;i<n;i++){
     const r=list[i]; const tr=document.createElement("tr");
     if(r && ((shared && r.id===uid) || (!shared && player && r.name===player.name))) tr.className="me";
     tr.innerHTML=`<td>#${pad(i+1)}</td><td class="pl"></td><td>${r?r.best:"—"}</td>`;
     const pl=tr.children[1];
     if(r){const w=document.createElement("div");w.className="who";const im=document.createElement("img");im.alt="";im.src=AV[r.av]||AV[0];const s=document.createElement("span");s.className="n";s.textContent=r.name;w.append(im,s);pl.appendChild(w)}
-    else pl.textContent="—";
     body.appendChild(tr);
   }
   $("rankNote").textContent = shared
-    ? (list.length ? "Classificação ao vivo, partilhada por todos." : "Ainda ninguém jogou. Sê o primeiro!")
+    ? "Classificação ao vivo, partilhada por todos."
     : "Esta classificação fica só neste dispositivo.";
 }
 renderRank();
+window.__rankTest=r=>{rows=r;shared=true;renderRank()};
 
 /* contagem de participantes: "eu vou" ao lado da data */
 let going=!!store.get("gineta.vou"), rsvpShared=false, rsvpCount=0;
@@ -1849,15 +1961,15 @@ async function shareCard(won,tt){
 /* faixa em rodapé na divisória do vídeo: informações a passar e o "eu vou" ao centro */
 (function(){
   const st=document.querySelector(".hero .stage"), btn=$("rsvpBtn"); if(!st||!btn) return;
-  const bar=document.createElement("div"); bar.className="tick"; bar.innerHTML='<div class="tick-run" aria-hidden="true"></div><div class="tick-btn"></div>';
+  /* card de apresentação: o vídeo dentro de um cartão como os do menu, que leva ao evento */
+  const v=$("hvid");
+  const card=document.createElement("a"); card.className="vcard"; card.href="#evento"; card.setAttribute("aria-label","rally da gineta 2026: ver o evento");
+  card.innerHTML='<span class="vc-media"></span><span class="tg"><i>19.12</i><i>13h00</i><i class="cd"></i></span>';
+  if(v) card.querySelector(".vc-media").appendChild(v);
+  st.appendChild(card);
+  const bar=document.createElement("div"); bar.className="tick"; bar.innerHTML='<div class="tick-btn"></div>';
   st.appendChild(bar); bar.querySelector(".tick-btn").appendChild(btn);
-  function fill(){
-    const cd=($("countdown")&&$("countdown").textContent)||"";
-    const items=["19.12","sábado","13h00",cd,"encontro no café do zé","7 cafés","valpedre → termas de são vicente","rally da gineta 2026","traz ração para os animais","joga o vandamme"].filter(Boolean);
-    const one='<span>'+items.map(t=>t+' <i>✦</i> ').join("")+'</span>';
-    bar.querySelector(".tick-run").innerHTML=one+one+one+one;
-  }
-  fill(); setTimeout(fill,500);
+  setTimeout(()=>{const c=$("countdown"), t=card.querySelector(".cd"); if(c&&c.textContent) t.textContent=c.textContent; else t.remove();},50);
 })();
 
 /* contagem decrescente até ao rally */
