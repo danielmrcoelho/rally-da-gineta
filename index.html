@@ -461,9 +461,9 @@ html body .when span{display:inline-flex;align-items:center;gap:7px;padding:0;bo
 html body .when span::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 2px var(--ink)}
 /* botão da classificação: cartão largo e fácil de ver */
 html body .gamebtns{display:block!important;margin-top:24px!important}
-.rankcta{display:flex;align-items:center;gap:16px;width:100%;box-sizing:border-box;padding:16px 16px 16px 18px;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);border-radius:var(--r,22px);text-decoration:none;box-shadow:5px 5px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
-.rankcta:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
-.rankcta:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.rankcta{display:flex;align-items:center;gap:16px;width:100%;box-sizing:border-box;padding:16px 16px 16px 18px;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);border-radius:var(--r,22px);text-decoration:none;box-shadow:none;transition:transform .12s ease}
+.rankcta:hover{transform:translateY(-2px)}
+.rankcta:active{transform:scale(.98)}
 .rankcta:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
 .rc-ic{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--yellow)}
 .rc-ic svg{width:26px;height:26px}
