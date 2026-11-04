@@ -448,6 +448,39 @@ html body .vcard .tg{max-width:calc(100% - 260px);top:32px}
   html body .stack a:first-child{box-shadow:0 -8px 20px rgba(13,13,13,.18)!important}
   html body .hero,html body .hero .stage{overflow:visible!important}
 }
+/* "eu vou": o número fica encaixado com a mesma folga em cima, em baixo e à direita */
+html body .tick .rsvp{--in:6px;box-sizing:border-box!important;height:64px!important;padding:0 var(--in) 0 26px!important;gap:14px!important;border-width:3px!important}
+html body .tick .rsvp b{box-sizing:border-box!important;height:calc(64px - 6px - 2 * var(--in))!important;min-width:calc(64px - 6px - 2 * var(--in) + 18px)!important;padding:0 14px!important;margin:0!important;display:grid!important;place-items:center!important;line-height:1!important;border-radius:999px!important}
+@media (max-width:760px){
+  html body .tick .rsvp{--in:5px;height:46px!important;padding:0 var(--in) 0 16px!important;gap:10px!important;font-size:16px!important}
+  html body .tick .rsvp b{height:calc(46px - 6px - 2 * var(--in))!important;min-width:calc(46px - 6px - 2 * var(--in) + 14px)!important;padding:0 10px!important;font-size:14px!important}
+}
+/* evento: hora e local como texto, não como botões */
+html body .when{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;margin:16px 0 0}
+html body .when span{display:inline-flex;align-items:center;gap:7px;padding:0;border:0;border-radius:0;background:none;font-weight:700;font-size:var(--t-m)}
+html body .when span::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 2px var(--ink)}
+/* botão da classificação: cartão largo e fácil de ver */
+html body .gamebtns{display:block!important;margin-top:24px!important}
+.rankcta{display:flex;align-items:center;gap:16px;width:100%;box-sizing:border-box;padding:16px 16px 16px 18px;background:var(--yellow);color:var(--ink);border:3px solid var(--ink);border-radius:var(--r,22px);text-decoration:none;box-shadow:5px 5px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+.rankcta:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+.rankcta:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.rankcta:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.rc-ic{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--ink);color:var(--yellow)}
+.rc-ic svg{width:26px;height:26px}
+.rc-t{flex:1;min-width:0;text-align:left}
+.rc-t b{display:block;font-size:26px;line-height:1;font-weight:900;letter-spacing:-.01em}
+.rc-t small{display:block;margin-top:4px;font-size:14px;font-weight:700;opacity:.75}
+.rc-go{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--cream);border:3px solid var(--ink)}
+.rc-go svg{width:20px;height:20px}
+@media (max-width:760px){.rankcta{gap:12px;padding:12px 12px 12px 14px;margin-bottom:8px}.rc-ic{width:44px;height:44px}.rc-ic svg{width:22px;height:22px}.rc-t b{font-size:20px}.rc-t small{font-size:12px}.rc-go{width:38px;height:38px}}
+/* telemóvel: o jogo inteiro + o cartão da classificação cabem no ecrã, por cima da barra de baixo */
+:root{--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px)}
+@media (max-width:760px){
+  html body .board{height:calc(100dvh - 312px - var(--sat) - var(--sab))!important;min-height:300px!important;max-height:none!important}
+  html body .gamebtns{margin-top:12px!important}
+  html body .rankcta{margin-bottom:0!important}
+  html.paged body #jogo{scroll-margin-top:10px}
+}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -1053,7 +1086,7 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
       </div>
     </div>
     <div class="gamebtns">
-      <a class="btn" href="#ranking">VER CLASSIFICAÇÃO</a>
+      <a class="rankcta" href="#ranking"><span class="rc-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3"/></svg></span><span class="rc-t"><b>ver classificação</b><small>quem bebeu mais finos? vê o top 10</small></span><span class="rc-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     </div>
   </div>
 </section>
@@ -1778,7 +1811,8 @@ function start(){
 }
 /* no telemóvel, encaixa a janela do jogo no ecrã (logo abaixo do cabeçalho) */
 function fitGame(){
-  const g=$("game"), bar=document.querySelector(".top .bar"), off=(bar?bar.getBoundingClientRect().bottom:0)+8;
+  const g=$("game"), bar=document.querySelector(".top .bar"), mobF=matchMedia("(max-width:760px)").matches;
+  const off=mobF?10+(parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--sat"))||0):(bar?bar.getBoundingClientRect().bottom:0)+8;
   const y=g.getBoundingClientRect().top+scrollY-off;
   if(Math.abs(y-scrollY)>4) scrollTo({top:y,behavior:"smooth"});
 }
