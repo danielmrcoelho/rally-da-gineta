@@ -985,10 +985,10 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
           </svg>
           </div>
           <aside class="callout" id="callout" aria-live="polite">
-            <div class="ctag"><span class="badge" id="coNum">02</span><span id="coName">Café Portal</span></div>
+            <div class="ctag"><span class="badge" id="coNum">01</span><span id="coName">Café do Zé</span></div>
             <span class="lbl">Especialidade</span>
-            <p id="coText">Vinho do Porto</p>
-            <small id="coSub">Paragem 2 de 6</small>
+            <p id="coText">Pregos em pão</p>
+            <small id="coSub">Partida · paragem 1 de 6</small>
             <a class="mapsbtn" id="coMaps" target="_blank" rel="noopener" href="#">Google Maps</a>
           </aside>
         </div>
@@ -1004,8 +1004,7 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
     <div class="about">
       <div class="aboutText">
         <p class="lede">O Rally da Gineta é a festa de Natal de um grupo de amigos de longa data.</p>
-        <p>Acontece sempre no primeiro sábado antes do Natal: este ano é a <b>19 de dezembro</b>. O objetivo é simples: juntar os amigos, estar com a família e, pelo caminho, ajudar uma associação de animais.</p>
-        <div class="when"><span>13h00</span><span>encontro no café do zé</span></div>
+        <p>Acontece sempre no primeiro sábado antes do Natal: este ano é a <b>19 de dezembro</b>, com encontro às <b>13h00</b> no <b>Café do Zé, em Valpedre</b>. O objetivo é simples: juntar os amigos, estar com a família e, pelo caminho, ajudar uma associação de animais.</p>
         <div class="evacts"><button class="btn" type="button" data-cal><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4M12 13v4M10 15h4"/></svg>pôr no calendário</button><a class="btn alt" data-wa target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z" stroke-width="1.6"/></svg>partilhar no whatsapp</a></div>
       </div>
       <div class="aboutHelp">
@@ -1186,7 +1185,7 @@ function select(i){
   $("coMaps").setAttribute("aria-label","Abrir "+c.n+" no Google Maps (abre numa nova janela)");
   const NC=CAFES.length; $("coSub").textContent = i===0 ? `Partida · paragem 1 de ${NC}` : i===NC-1 ? `Chegada · paragem ${NC} de ${NC}` : `Paragem ${i+1} de ${NC}`;
 }
-select(1);
+select(0);
 /* rodinha que faz o circuito do Café do Zé ao Café Radikal; cada café dá um salto quando ela chega */
 (function(){
   const path=$("routePath"), wheel=$("wheel"), mapChips=[...chips.querySelectorAll(".cafe")];
@@ -1451,19 +1450,22 @@ renderRank();
 window.__rankTest=r=>{rows=r;shared=true;renderRank()};
 
 /* contagem de participantes: "eu vou" ao lado da data */
-let going=!!store.get("gineta.vou"), rsvpShared=false, rsvpCount=0;
+let going=!!store.get("gineta.vou"), rsvpCount=store.get("gineta.vouN"), rsvpShared=typeof rsvpCount==="number";
+if(!rsvpShared) rsvpCount=0;
+/* guarda o último total conhecido, para o contador abrir logo com o número certo */
+function setCount(n){ rsvpShared=true; rsvpCount=n; store.set("gineta.vouN",n); paintRsvp(); }
 function paintRsvp(){
   const b=$("rsvpBtn"); if(!b) return;
-  const n=rsvpShared?rsvpCount:(going?1:0);
-  $("rsvpN").textContent=String(Math.min(999,n)).padStart(3,"0");
+  const n=rsvpCount;
+  $("rsvpN").textContent=rsvpShared?String(Math.min(999,n)).padStart(3,"0"):"···";
   b.setAttribute("aria-pressed",going);
   b.querySelector(".rv-l").textContent="eu vou";
-  b.title=rsvpShared?`${n} ${n===1?"pessoa vai":"pessoas vão"}`:"contagem só neste dispositivo";
+  b.title=rsvpShared?`${n} ${n===1?"pessoa vai":"pessoas vão"}`:"a carregar…";
 }
 function setGoing(v){
   if(going===v) return;
   going=v; store.set("gineta.vou",going);
-  if(rsvpShared) rsvpCount=Math.max(0,rsvpCount+(going?1:-1));
+  if(rsvpShared){ rsvpCount=Math.max(0,rsvpCount+(going?1:-1)); store.set("gineta.vouN",rsvpCount); }
   const b=$("rsvpBtn"); b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
   paintRsvp(); syncProfile();
 }
@@ -1510,7 +1512,7 @@ async function initDb(){
       renderRank();
     },()=>{shared=false;renderRank()});
     if(uid){const s=await db.doc("players/"+uid).get(); if(s.exists){myBest=Math.max(myBest,s.data().best||0); if(s.data().vai&&!going){going=true;store.set("gineta.vou",true)}}}
-    db.collection("players").where("vai","==",true).onSnapshot(snap=>{rsvpShared=true;rsvpCount=snap.docs.length;paintRsvp()},()=>{});
+    db.collection("players").where("vai","==",true).onSnapshot(snap=>{setCount(snap.docs.length)},()=>{});
   }catch(e){}
 }
 initDb();
@@ -1527,7 +1529,7 @@ async function supaPull(){
       fetch(SUPA_URL+"/rest/v1/jogadores?select=device,nome,avatar,melhor&melhor=gt.0&order=melhor.desc&limit=10",{headers:sh()})]);
     if(!a.ok||!b.ok) throw 0;
     const vai=await a.json(), top=await b.json();
-    rsvpShared=true; rsvpCount=vai.length; paintRsvp();
+    setCount(vai.length);
     shared=true; uid=devId; rows=top.map(r=>({id:r.device,name:r.nome,av:r.avatar||0,best:r.melhor}));
     const me=top.find(r=>r.device===devId); if(me) myBest=Math.max(myBest,me.melhor||0);
     renderRank();
@@ -1561,11 +1563,12 @@ function toast(t){let e=$("toast");if(!e){e=document.createElement("div");e.id="
 async function initSupa(){
   if(supa||db||!SUPA_KEY||SUPA_KEY.indexOf("{{")===0) return;
   supa=true;
+  supaPull();   /* o total chega logo, sem esperar pelo resto */
   try{ const r=await fetch(SUPA_URL+"/rest/v1/jogadores?select=vai,melhor&device=eq."+encodeURIComponent(devId),{headers:sh()}); const j=r.ok?await r.json():[];
     if(j[0]){ myBest=Math.max(myBest,j[0].melhor||0); if(j[0].vai&&!going){going=true;store.set("gineta.vou",true)} } }catch(e){}
-  supaPull(); setInterval(supaPull,20000);
+  setInterval(supaPull,20000);
 }
-setTimeout(initSupa,1500);
+setTimeout(initSupa,(window.claude&&window.claude.use)?1500:0);
 
 let writing=false, again=false;
 async function syncProfile(){
