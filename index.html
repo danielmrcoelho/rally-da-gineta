@@ -27,6 +27,7 @@
 <title>rally da gineta 2026</title>
 </head>
 <body>
+<script>(function(){try{var t=localStorage.getItem("gineta.theme");if(t==null){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}else t=JSON.parse(t);if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}})();</script>
 <title>rally da gineta 2026</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -481,6 +482,67 @@ html body .gamebtns{display:block!important;margin-top:24px!important}
   html body .rankcta{margin-bottom:0!important}
   html.paged body #jogo{scroll-margin-top:10px}
 }
+/* ================= modo escuro ================= */
+.top .bar{gap:6px}
+.themeb{margin-left:auto;display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;border-radius:50%;background:none;color:var(--ink);cursor:pointer}
+.themeb svg{width:22px;height:22px}
+.themeb .ic-sun{display:none}
+html.dark .themeb .ic-sun{display:block} html.dark .themeb .ic-moon{display:none}
+.themeb:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+html.dark{--bg:#141413;--cream:#1F1F1D;--ink:#F1EFE6;--rule:#3A3A36;color-scheme:dark}
+html.dark,html.dark body{background:var(--bg)}
+html.dark :where(.aboutHelp,.avs,.badge,.btn.alt,.cafe[aria-pressed="true"],.callout,.gbar,.h2,.pager button.nx,.popwin .bar,.quick a b,.rank thead th,.rankcta,.rtitle,.shutter,.stack .c1,.steps i.done,.tabbar a.on,.tag .rsvp,.tag .rsvp[aria-pressed="true"] b,.tick .rsvp,.tick .rsvp[aria-pressed="true"] b,.vcard .go,.when span){--ink:#0D0D0D;--cream:#F7F6F1;--rule:#0D0D0D33;color:#0D0D0D}
+html.dark :where(.btn,.gtitle,.nav a.on,.nav a:hover,.pager .dots i.on,.popwin .x,.rc-ic,.stack .c2,.stack .go,.tabbar,.tag .goto,.tag .rsvp b,.tag .rsvp[aria-pressed="true"],.toast){--ink:#0D0D0D;--cream:#F7F6F1}
+html.dark .stack .c2{box-shadow:0 0 0 2px #2E2E2B inset,0 -6px 18px rgba(0,0,0,.4)!important}
+html.dark .board{background:#1F1F1D!important}
+html.dark .board{--lvbg:#1F1F1D}
+html.dark .coinrules .col{--ink:#0D0D0D;--cream:#F7F6F1;color:#0D0D0D}
+html.dark .coinrules .col.good{background:#EAFF00}
+html.dark .coinrules .col.bad{background:#C9B3FF}
+html.dark .stack .c3{background:#2A2A27!important}
+html.dark .stack .c4{background:var(--cream)!important;border-color:#3A3A36!important}
+html.dark .rank tr.me td{background:#3A3D12}
+html.dark .overlay{background:rgba(20,20,19,.9)!important}
+html.dark .btn:not(.alt){background:#F1EFE6!important;color:#0D0D0D!important;border-color:#F1EFE6!important}
+html.dark .btn:not(.alt) svg{color:#0D0D0D}
+html.dark .board{background:#1F1F1D!important}
+html.dark .stack :is(.c3,.c4) .go{background:#EAFF00!important;color:#0D0D0D!important}
+html.dark .tabbar{box-shadow:0 0 0 2px #2E2E2B,0 8px 24px rgba(0,0,0,.5)!important}
+html.dark .tag .goto{color:#F7F6F1}
+/* ---------- ecrã VS: simples, direito e centrado ---------- */
+.shutter .vs{display:none}
+.shutter.is-vs .plate{display:none}
+.shutter.is-vs .vs{display:flex;align-items:center;justify-content:center;width:100%;padding:0 16px;color:#0D0D0D}
+.vs-row{display:flex;align-items:flex-start;justify-content:center;gap:clamp(10px,2.5vw,22px);width:auto;max-width:640px}
+.vs-c{flex:none;min-width:0;width:clamp(90px,18vw,130px);display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;opacity:0}
+.vs-c img,.vs-c .badge{width:clamp(68px,15vw,100px);height:clamp(68px,15vw,100px);border-radius:50%;border:4px solid #0D0D0D;object-fit:cover;box-sizing:border-box}
+.vs-c .badge{display:grid;place-items:center;background:#0D0D0D;color:#EAFF00;font-weight:900;font-size:clamp(26px,6vw,38px)}
+.vs-c b{font-size:clamp(15px,3.4vw,19px);line-height:1.1;font-weight:900;overflow-wrap:anywhere}
+.vs-x{flex:none;align-self:flex-start;height:clamp(68px,15vw,100px);display:flex;align-items:center;font-weight:900;font-size:clamp(20px,4.5vw,28px);line-height:1;opacity:0}
+.shutter.is-vs.closed .vs-me{animation:vsInL .4s cubic-bezier(.2,1,.3,1) .12s forwards}
+.shutter.is-vs.closed .vs-cafe{animation:vsInR .4s cubic-bezier(.2,1,.3,1) .12s forwards}
+.shutter.is-vs.closed .vs-x{animation:vsPop .3s ease .4s forwards}
+@keyframes vsInL{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+@keyframes vsInR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes vsPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+/* ---------- bafómetro ---------- */
+.bafo{display:flex;flex-direction:column;align-items:center;gap:6px;margin:14px auto 16px}
+.bafo .bl{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:lowercase;opacity:.75}
+.bafo .bm{display:flex;gap:5px;padding:5px;border:3px solid var(--ink);border-radius:999px;background:var(--cream)}
+.bafo .bm i{width:26px;height:14px;border-radius:999px;background:color-mix(in srgb,var(--ink) 12%,transparent)}
+.bafo .bm i.on{background:hsl(calc(70 - var(--j) * 14) 100% 50%)}
+.bafo .bm i.on:last-of-type{animation:bafoPulse 1s ease-in-out infinite}
+.bafo .bt{font-size:20px;font-weight:900;transform:rotate(-2deg)}
+@keyframes bafoPulse{50%{filter:brightness(1.25);transform:scaleY(1.25)}}
+/* o ecrã fica mais "tocado" a cada café */
+@media (prefers-reduced-motion:reduce){.board.tipsy{animation:none}.shutter.is-vs.closed :is(.vs-me,.vs-cafe,.vs-x){animation:none;opacity:1;transform:none}}
+/* mapa centrado com valores fixos: não se mexe ao abrir */
+#chips{transform:translate(-.7%,1.3%);margin:-5.5% 0}
+#callout{translate:-.7% 0}
+@media (max-width:760px){#chips{transform:translate(11.5%,3%);margin:0}#callout{translate:none}}
+html.dark .steps i{border-color:#F1EFE6;background:transparent}
+html.dark .steps i.done{background:#EAFF00;border-color:#EAFF00}
+html.dark .steps i.now{background:#F1EFE6;border-color:#F1EFE6;box-shadow:0 0 0 3px rgba(241,239,230,.25)}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -931,7 +993,7 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
 <header class="top">
   <div class="bar">
     <a class="brand" href="#inicio" aria-label="rally da gineta, voltar ao início"><svg class="logo" viewBox="0 0 399.44 163.27" aria-hidden="true"><path d="M84.17,66.69c-2.33,13.04-3.72,26.81-4.16,41.29-.56,17.93-3.55,30.94-8.99,39.05-7.27,10.82-20.15,16.24-38.63,16.24-21.59,0-32.39-4.27-32.39-12.82,0-3.05.97-5.52,2.91-7.41,1.94-1.89,4.5-2.83,7.66-2.83,2.5,0,6.08.47,10.74,1.42,4.66.94,8.8,1.42,12.41,1.42,8.27,0,14.38-2.53,18.32-7.58,3.77-4.94,5.99-12.79,6.66-23.56-2.83,2.89-6.02,5.05-9.57,6.49-3.55,1.44-7.44,2.17-11.66,2.17-11.05,0-20.02-3.59-26.93-10.78C3.62,102.59.17,93.39.17,82.17c0-15.1,4.61-27.31,13.82-36.63,9.55-9.66,22.45-14.49,38.71-14.49,5.22,0,9.71.64,13.49,1.92,3.77,1.28,6.83,3.22,9.16,5.83,7.05.83,10.57,5,10.57,12.49,0,3.72-.58,8.85-1.75,15.4ZM51.87,50.04c-9.38,0-16.68,3.08-21.9,9.24-4.66,5.61-6.99,12.88-6.99,21.81,0,6.61,1.25,11.57,3.75,14.9,2.5,3.33,6.24,5,11.24,5,4.55,0,9.13-2.64,13.74-7.91,4.33-5,6.8-9.94,7.41-14.82,1.05-5.33,2.28-13.63,3.66-24.89-1.89-1.11-3.75-1.94-5.58-2.5-1.83-.55-3.61-.83-5.33-.83Z"/><path d="M104.8,77.26c0,3.16.1,8.24.29,15.24.19,6.99.29,12.07.29,15.24s-1.08,5.87-3.25,7.95c-2.16,2.08-4.91,3.12-8.24,3.12s-6.08-1.04-8.24-3.12c-2.17-2.08-3.25-4.73-3.25-7.95s-.1-8.24-.29-15.24c-.2-6.99-.29-12.07-.29-15.24,0-4.94.28-11.13.83-18.57.55-7.44.83-13.63.83-18.57,0-3.22,1.08-5.87,3.25-7.95,2.17-2.08,4.91-3.12,8.24-3.12s6.08,1.04,8.24,3.12c2.16,2.08,3.25,4.73,3.25,7.95,0,4.94-.28,11.13-.83,18.57-.56,7.44-.83,13.63-.83,18.57ZM96.15,26.83c-3.55,0-6.63-1.19-9.24-3.58-2.61-2.39-3.91-5.3-3.91-8.74s1.3-6.36,3.91-8.74c2.61-2.39,5.69-3.58,9.24-3.58s6.62,1.19,9.2,3.58c2.58,2.39,3.87,5.3,3.87,8.74s-1.29,6.36-3.87,8.74-5.65,3.58-9.2,3.58Z"/><path d="M173.38,122.22c-6.83,0-10.63-3.36-11.41-10.07-.78-5.72-1.55-11.46-2.33-17.23-.83-6.1-1.25-11.85-1.25-17.23,0-1.44.1-3.91.29-7.41.19-3.5.29-5.97.29-7.41,0-.39.05-1.37.17-2.96.11-1.58.17-2.87.17-3.87,0-4.61-1.11-6.91-3.33-6.91-4.75,0-9.42,3.06-13.99,9.17-4.57,6.11-8.15,13.86-10.73,23.24-.1,1.88-.34,4.38-.7,7.51-.31,2.56-.47,5.06-.47,7.51,0,1.59-.18,4-.54,7.21-.36,3.21-.54,5.61-.54,7.21,0,3.24-1.1,5.93-3.29,8.06-2.19,2.13-4.95,3.2-8.28,3.2s-6.08-1.06-8.24-3.18c-2.16-2.12-3.25-4.79-3.25-8.01,0-1.58-.17-3.97-.5-7.16s-.5-5.58-.5-7.17c0-5.43.39-12.97,1.17-22.64.78-9.67,1.17-17.21,1.17-22.64,0-1.7-.1-4.22-.29-7.59-.19-3.36-.29-5.86-.29-7.5,0-3.17,1.12-5.78,3.37-7.84s5.01-3.09,8.28-3.09c7.27,0,11.16,4.36,11.66,13.07l.08.92c8.1-8.16,16.65-12.24,25.64-12.24,10.49,0,17.73,4.39,21.73,13.16,2.66,5.88,4,14.68,4,26.39v5.91c-.06,2.55-.08,4.36-.08,5.41,0,4.33.6,9.91,1.79,16.73,1.19,6.83,1.79,12.38,1.79,16.65,0,3.11-1.11,5.69-3.33,7.74-2.22,2.05-4.97,3.08-8.24,3.08Z"/><path d="M220.23,120.14c-13.27,0-24.12-3.16-32.55-9.49-9.32-6.99-13.99-16.85-13.99-29.56,0-14.04,3.69-25.92,11.07-35.63,8.21-10.77,19.29-16.15,33.22-16.15,9.66,0,17.68,1.55,24.06,4.66,8.38,4.11,12.57,10.49,12.57,19.15,0,6.11-3.41,11.52-10.24,16.24-3.11,2.16-9.35,5.33-18.73,9.49l-28.06,12.41c2.66,2.89,5.88,5.05,9.66,6.49,3.77,1.44,8.1,2.17,12.99,2.17,7.44,0,13.74-1.53,18.9-4.58,4.61-2.72,8.3-4.08,11.07-4.08,5.77,0,8.66,2.8,8.66,8.41,0,6.33-4.63,11.49-13.9,15.49-7.77,3.33-16.01,5-24.73,5ZM217.98,49.46c-5.16,0-9.57,1.72-13.24,5.16-3.66,3.44-6.61,8.6-8.83,15.49,6.27-2.72,12.52-5.41,18.73-8.08,7.49-3.38,13.46-6.52,17.9-9.41-3.72-2.11-8.58-3.16-14.57-3.16Z"/><path d="M313.62,49.29c-1.17,0-2.54-.04-4.12-.12-1.58-.08-2.96-.12-4.12-.12-2.28,0-4.91.22-7.91.67,1,22.43,1.5,37.08,1.5,43.96,0,.72.03,2.07.08,4.04.05,1.97.08,3.57.08,4.79,0,12.77-4.02,19.15-12.07,19.15-3.05,0-5.69-.94-7.91-2.83-2.44-2-3.66-4.5-3.66-7.49,0-2,.08-5,.25-8.99.17-4,.25-6.99.25-8.99,0-6.71-.5-21.09-1.5-43.13-3.44-.17-8.65-.62-15.61-1.37-6.97-.75-10.45-4.34-10.45-10.78,0-3.11,1.05-5.75,3.16-7.91,2.11-2.16,4.83-3.25,8.16-3.25,2.05,0,6.77.33,14.15,1-.06-1.78-.2-4.72-.42-8.83-.22-3.55-.33-6.3-.33-8.24,0-3.11,1.14-5.69,3.41-7.74,2.28-2.05,5.02-3.08,8.24-3.08,8.21,0,12.32,6.91,12.32,20.73l-.17,6.83c3.44-.5,6.25-.75,8.41-.75,6.38,0,10.74.42,13.07,1.25,4.44,1.55,6.66,4.94,6.66,10.16,0,3.16-1.08,5.8-3.25,7.91-2.17,2.11-4.91,3.16-8.24,3.16Z"/><path d="M388.28,120.89c-2.55,0-6.61-2.47-12.16-7.41-5.11,2.44-9.6,4.29-13.49,5.54-3.89,1.25-7.19,1.87-9.91,1.87-13.38,0-23.41-3.58-30.1-10.74-6.69-7.16-10.03-17.87-10.03-32.14,0-13.38,4.94-24.82,14.82-34.34,9.88-9.52,21.7-14.28,35.47-14.28,5.27,0,11.38,1.48,18.32,4.45,8.38,3.57,12.57,7.72,12.57,12.45,0,1.98-.64,3.71-1.92,5.19-.56,2.2-.99,4.96-1.29,8.29-.31,3.33-.46,7.21-.46,11.66,0,10.5.75,18.05,2.25,22.67.17.5,1.44,3.35,3.83,8.57,2.17,4.73,3.25,7.42,3.25,8.08,0,2.91-1.12,5.33-3.37,7.25-2.25,1.92-4.84,2.89-7.78,2.89ZM367.63,64.69c0-1.78.12-3.82.38-6.12.25-2.3.62-4.87,1.12-7.7-1.11-.55-2.1-.96-2.96-1.21s-1.6-.38-2.21-.38c-7.55,0-14.15,2.96-19.82,8.87-5.66,5.91-8.49,12.75-8.49,20.52s1.33,13.03,4,16.78c2.67,3.75,6.66,5.62,11.99,5.62,3.44,0,6.7-.57,9.78-1.71,3.08-1.14,5.98-2.82,8.7-5.04-1.67-13.21-2.5-23.09-2.5-29.64Z"/><path d="M296,134.01c-.1,1.74-.89,2.61-2.37,2.61s-2.15-.74-2.15-2.21l-.08-1.72c-2.55.41-4.38,1.72-5.48,3.93l.02,8.57c0,.65-.22,1.18-.66,1.61-.44.43-1,.64-1.69.64s-1.25-.23-1.63-.68c-.36-.41-.54-.93-.54-1.57v-11.16c0-.35.01-.88.03-1.58.02-.7.03-1.22.03-1.58,0-.64.19-1.17.57-1.59.38-.43.92-.64,1.63-.64,1.26,0,2.01.65,2.25,1.94,2.01-1.5,4.24-2.25,6.69-2.25,2.27,0,3.41,1.51,3.41,4.53,0,.58,0,.96-.02,1.14Z"/><path d="M310.04,147.22c-.52,0-1.35-.5-2.49-1.52-1.04.5-1.96.88-2.76,1.13s-1.47.38-2.03.38c-2.74,0-4.79-.73-6.16-2.2s-2.05-3.66-2.05-6.57c0-2.74,1.01-5.08,3.03-7.03s4.44-2.92,7.25-2.92c1.08,0,2.33.3,3.75.91,1.71.73,2.57,1.58,2.57,2.55,0,.41-.13.76-.39,1.06-.11.45-.2,1.01-.26,1.69-.06.68-.09,1.48-.09,2.39,0,2.15.15,3.69.46,4.64.03.1.29.69.78,1.75.44.97.66,1.52.66,1.65,0,.6-.23,1.09-.69,1.48s-.99.59-1.59.59ZM305.82,135.73c0-.36.03-.78.08-1.25.05-.47.13-1,.23-1.58-.23-.11-.43-.2-.6-.25s-.33-.08-.45-.08c-1.54,0-2.9.61-4.05,1.81-1.16,1.21-1.74,2.61-1.74,4.2s.27,2.67.82,3.43c.54.77,1.36,1.15,2.45,1.15.7,0,1.37-.12,2-.35.63-.23,1.22-.58,1.78-1.03-.34-2.7-.51-4.72-.51-6.06Z"/><path d="M316.83,143.78c0,2.16-.78,3.24-2.35,3.24-.68,0-1.24-.22-1.69-.65-.44-.43-.66-.99-.66-1.67v-23.55c0-.66.24-1.2.72-1.62.45-.39,1.02-.58,1.69-.58s1.22.2,1.65.6c.43.4.65.93.65,1.59v22.63Z"/><path d="M323.25,143.78c0,2.16-.78,3.24-2.35,3.24-.68,0-1.24-.22-1.69-.65-.44-.43-.66-.99-.66-1.67v-23.55c0-.66.24-1.2.72-1.62.45-.39,1.02-.58,1.69-.58s1.22.2,1.65.6c.43.4.65.93.65,1.59v22.63Z"/><path d="M341.35,131.9c-1.24,2.58-3.2,6.62-5.88,12.14-1.45,2.96-2.56,5.42-3.32,7.38-.24.7-.61,1.75-1.12,3.13-.41,1.07-1.14,1.6-2.18,1.6-.65,0-1.21-.21-1.7-.63s-.73-.95-.73-1.58c0-1.06,1.2-4.18,3.61-9.38-1.25-2.46-3.23-6.09-5.94-10.88-.27-.43-.55-.87-.83-1.31-.31-.52-.46-1-.46-1.43,0-.61.24-1.15.73-1.62s1.05-.7,1.69-.7c.75,0,1.33.28,1.75.83,1.61,2.15,3.49,5.38,5.64,9.69,1.21-2.69,1.95-4.31,2.21-4.87.81-1.69,1.6-3.18,2.37-4.46.49-.82,1.16-1.23,2.01-1.23.64,0,1.2.22,1.7.65s.75.96.75,1.58c0,.33-.1.69-.29,1.09Z"/></svg></a>
-    <button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="menu" aria-label="abrir menu"><i></i><i></i></button>
+    <button class="themeb" type="button" id="themeBtn" aria-label="mudar para modo escuro" aria-pressed="false"><svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg></button><button class="burger" type="button" id="burger" aria-expanded="false" aria-controls="menu" aria-label="abrir menu"><i></i><i></i></button>
   </div>
   <nav class="nav" id="menu" aria-label="Secções">
     <a href="#percurso">percurso</a>
@@ -1081,7 +1143,7 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
             <button class="btn" type="button" data-start>COMEÇAR</button>
           </div>
         </div>
-        <div class="shutter" id="shutter" aria-hidden="true"><div class="plate">Café do Zé</div></div>
+        <div class="shutter" id="shutter" aria-hidden="true"><div class="plate">Café do Zé</div><div class="vs" id="vsBox"></div></div>
       </div>
     </div>
     <div class="gamebtns">
@@ -1124,12 +1186,12 @@ const ICON={fino:"a-e658686587.webp",superbock:"a-5b78d35b70.webp",gineta:"a-a40
 const FLAT={fino:"a-082ce1b572.webp",superbock:"a-c779d7b66d.webp",gineta:"a-aad58bf19e.webp",agua:"a-11eaef3519.webp",sagres:"a-215a84d949.webp",salazar:"a-00d38e112b.webp"};
 function medal(k){return `<img src="${ICON[k]}" alt="">`}
 const CAFES = [
-  {n:"Café do Zé", x:80, y:280, esp:"Pregos em pão"},
-  {n:"Café Portal", x:589, y:280, esp:"Vinho do Porto"},
-  {n:"Café Aveleda", x:138, y:576, esp:"Vinho verde"},
-  {n:"Café do Manel", x:101, y:897, esp:"Petiscos"},
-  {n:"Manjar", x:422, y:897, esp:"Cachorro"},
-  {n:"Café Radikal", x:746, y:847, esp:"Fininhos"}
+  {n:"Café do Zé", x:80, y:280, esp:"Pregos em pão", maps:"https://www.google.com/maps/search/?api=1&query=41.1313746,-8.3049297"},
+  {n:"Café Portal", x:589, y:280, esp:"Vinho do Porto", maps:"https://www.google.com/maps/search/?api=1&query=41.1294966,-8.3056091"},
+  {n:"Café Aveleda", x:138, y:576, esp:"Vinho verde", maps:"https://www.google.com/maps/search/?api=1&query=41.1153369,-8.2955053"},
+  {n:"Café do Manel", x:101, y:897, esp:"Petiscos", maps:"https://www.google.com/maps/search/?api=1&query=41.1161641,-8.2932288"},
+  {n:"Manjar", x:422, y:897, esp:"Cachorro", maps:"https://www.google.com/maps/search/?api=1&query=41.1221256,-8.2946856"},
+  {n:"Café Radikal", x:746, y:847, esp:"Fininhos", maps:"https://www.google.com/maps/search/?api=1&query=41.1241725,-8.2947625"}
 ];
 const pad = n => String(n).padStart(2,"0");
 const $ = id => document.getElementById(id);
@@ -1257,27 +1319,15 @@ select(0);
   }
   fit(); addEventListener("resize",fit); if(window.ResizeObserver) new ResizeObserver(fit).observe(box);
 })();
-/* mapa sempre centrado: mede o percurso (e o cartão do café, no computador) e centra o conjunto */
+/* mapa centrado com valores fixos (sem medir nem mexer depois de aparecer) */
+
+/* ---------- modo escuro: botão ao lado do menu ---------- */
 (function(){
-  const inner=document.getElementById("chips"), box=inner&&inner.closest(".mapbox"), call=box&&box.querySelector(".callout"); if(!inner) return;
-  function center(){
-    inner.style.transform=""; inner.style.marginTop=inner.style.marginBottom=""; if(call) call.style.translate="";
-    const R=inner.getBoundingClientRect(); if(!R.width) return;
-    const mob=matchMedia("(max-width:760px)").matches;
-    const els=[...inner.querySelectorAll(".cafe"),...inner.querySelectorAll(".map .place")];
-    if(!mob&&call) els.push(call);
-    let x0=1e9,x1=-1e9,y0=1e9,y1=-1e9;
-    els.forEach(e=>{const b=e.getBoundingClientRect(); if(!b.width) return; x0=Math.min(x0,b.left);x1=Math.max(x1,b.right);y0=Math.min(y0,b.top);y1=Math.max(y1,b.bottom)});
-    if(x0>x1) return;
-    const dx=Math.round(R.left+R.width/2-(x0+x1)/2), dy=Math.round(R.top+R.height/2-(y0+y1)/2);
-    const gap=Math.max(0,Math.round((R.height-(y1-y0))/2-24));
-    inner.style.transform=`translate(${dx}px,${dy}px)`; inner.style.marginTop=inner.style.marginBottom=(-gap)+"px";
-    if(!mob&&call) call.style.translate=`${dx}px ${dy-gap}px`;
-  }
-  let t; const go=()=>{clearTimeout(t); t=setTimeout(center,120)};
-  center(); addEventListener("resize",go); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(go);
-  if(window.ResizeObserver) new ResizeObserver(go).observe(inner);
-  window.centerMap=center;
+  const b=$("themeBtn"), root=document.documentElement; if(!b) return;
+  function paint(){const d=root.classList.contains("dark"); b.setAttribute("aria-pressed",d); b.setAttribute("aria-label",d?"mudar para modo claro":"mudar para modo escuro");
+    let m=document.querySelector('meta[name="theme-color"]'); if(m) m.content=d?"#141413":"#EAE9E2";}
+  b.addEventListener("click",()=>{root.classList.toggle("dark"); store.set("gineta.theme",root.classList.contains("dark")?"dark":"light"); paint();});
+  paint();
 })();
 /* ---------- Evento ---------- */
 document.querySelectorAll(".flip button").forEach(b=>b.addEventListener("click",()=>b.setAttribute("aria-expanded",b.getAttribute("aria-expanded")!=="true")));
@@ -1340,7 +1390,7 @@ const links=[...document.querySelectorAll(".nav a")];
     document.documentElement.classList.toggle("on-hero",!!on);
     let m=document.querySelector('meta[name="theme-color"]');
     if(!m){m=document.createElement("meta");m.name="theme-color";document.head.appendChild(m)}
-    m.content=on?"#E6E6E1":"#EAE9E2";
+    m.content=document.documentElement.classList.contains("dark")?"#141413":(on?"#E6E6E1":"#EAE9E2");
   }
   addEventListener("scroll",topTint,{passive:true});
   topTint();
@@ -1457,7 +1507,7 @@ function setCount(n){ rsvpShared=true; rsvpCount=n; store.set("gineta.vouN",n); 
 function paintRsvp(){
   const b=$("rsvpBtn"); if(!b) return;
   const n=rsvpCount;
-  $("rsvpN").textContent=rsvpShared?String(Math.min(999,n)).padStart(3,"0"):"···";
+  $("rsvpN").textContent=String(Math.min(999,n)).padStart(3,"0");
   b.setAttribute("aria-pressed",going);
   b.querySelector(".rv-l").textContent="eu vou";
   b.title=rsvpShared?`${n} ${n===1?"pessoa vai":"pessoas vão"}`:"a carregar…";
@@ -1762,19 +1812,41 @@ function paintLevel(){
   $("lvlNum").textContent=pad(lvl+1); $("lvlName").textContent=CAFES[lvl].n; $("lvlInfo").textContent=`Nível ${lvl+1} de ${CAFES.length} · meta ${GOALS[lvl]}`;
 }
 function cafeCard(i){return `<div class="cafe"><span class="badge">${pad(i+1)}</span><span></span></div>`}
+/* nível de gineta: o bafómetro sobe de café para café */
+const TIPSY=["tranquilo","animado","já canta","vê a dobrar","chamem um táxi","lenda viva"];
+function bafo(i){
+  const n=CAFES.length, k=Math.min(i,n-1);
+  return `<div class="bafo" aria-label="nível de gineta: ${TIPSY[k]}"><span class="bl">nível de gineta</span><span class="bm">${CAFES.map((_,j)=>`<i class="${j<=k?"on":""}" style="--j:${j}"></i>`).join("")}</span><b class="bt">${TIPSY[k]}</b></div>`;
+}
+/* ecrã VS à Street Fighter: tu contra o café */
+function vsHtml(i){
+  const av=player?AV[player.av]||AV[0]:AV[0];
+  return `<div class="vs-row">
+    <div class="vs-c vs-me"><img src="${av}" alt=""><b></b></div>
+    <div class="vs-x">vs</div>
+    <div class="vs-c vs-cafe"><span class="badge">${pad(i+1)}</span><b></b></div>
+  </div>`;
+}
+sfx.vs=function(){const a=audio();if(!a)return;const n=a.currentTime;tone(90,.3,"sawtooth",.16,n+.28,40);tone(180,.1,"square",.08,n+.28,60)};
 function shut(label,mid){
   return new Promise(res=>{
-    busy=true; shutter.querySelector(".plate").textContent=label;
-    shutter.classList.add("closed"); sfx.shutter();
-    setTimeout(()=>{mid&&mid(); setTimeout(()=>{shutter.classList.remove("closed"); sfx.shutter(); setTimeout(()=>{busy=false;res()},460)},650)},470);
+    busy=true;
+    const ci=CAFES.findIndex(c=>c.n===label), vs=$("vsBox");
+    shutter.classList.toggle("is-vs",ci>=0);
+    if(ci>=0){ vs.innerHTML=vsHtml(ci); vs.querySelector(".vs-me b").textContent=player?player.name:"malta"; vs.querySelector(".vs-cafe b").textContent=CAFES[ci].n; void vs.offsetWidth; }
+    else shutter.querySelector(".plate").textContent=label;
+    shutter.classList.add("closed"); sfx.shutter(); if(ci>=0) setTimeout(()=>sfx.vs&&sfx.vs(),300);
+    const hold=ci>=0?1100:650;
+    setTimeout(()=>{mid&&mid(); setTimeout(()=>{shutter.classList.remove("closed"); sfx.shutter(); setTimeout(()=>{busy=false;res()},460)},hold)},470);
   });
 }
 function levelScreen(head){
   ov.hidden=false; ovBox.className="box";
-  ovBox.innerHTML=`${stepsHtml(lvl)}${head||""}<p class="small">Nível ${lvl+1} de ${CAFES.length}</p>${cafeCard(lvl)}<p>Especialidade: ${CAFES[lvl].esp}</p><p class="small">Faz <b>${GOALS[lvl]} pontos</b> em 15 segundos para passar.</p><button class="btn" type="button" id="enter">ENTRAR NO CAFÉ</button>`;
+  ovBox.innerHTML=`${stepsHtml(lvl)}${head||""}<p class="small">Nível ${lvl+1} de ${CAFES.length}</p>${cafeCard(lvl)}<p>Especialidade: ${CAFES[lvl].esp}</p><p class="small">Faz <b>${GOALS[lvl]} pontos</b> em 15 segundos para passar.</p>${bafo(lvl)}<button class="btn" type="button" id="enter">ENTRAR NO CAFÉ</button>`;
   ovBox.querySelector(".cafe span:last-child").textContent=CAFES[lvl].n;
   $("enter").addEventListener("click",play);
 }
+window.__lvlTest=n=>{lvl=n;paintLevel();levelScreen();};window.__vsTest=n=>shut(CAFES[n].n,()=>{});
 /* linhas de velocidade: a tela parece estar sempre a cair (mais rápido a cada café) */
 (function(){
   const cv=$("speed"); if(!cv) return; const x=cv.getContext("2d");
