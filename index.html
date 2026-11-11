@@ -543,6 +543,75 @@ html.dark .tag .goto{color:#F7F6F1}
 html.dark .steps i{border-color:#F1EFE6;background:transparent}
 html.dark .steps i.done{background:#EAFF00;border-color:#EAFF00}
 html.dark .steps i.now{background:#F1EFE6;border-color:#F1EFE6;box-shadow:0 0 0 3px rgba(241,239,230,.25)}
+/* botões do evento: grandes, com ícone e subtítulo */
+html body .evacts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.eact{display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;padding:12px 12px 12px 12px;border:3px solid #0D0D0D;border-radius:18px;font:inherit;text-align:left;text-decoration:none;cursor:pointer;transition:transform .12s ease}
+.eact:hover{transform:translateY(-2px)}
+.eact:active{transform:scale(.98)}
+.eact:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.ea-cal{background:#0D0D0D;color:#EAFF00}
+.ea-wa{background:#EAFF00;color:#0D0D0D}
+.ea-ic{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%}
+.ea-cal .ea-ic{background:#EAFF00;color:#0D0D0D}
+.ea-wa .ea-ic{background:#0D0D0D;color:#EAFF00}
+.ea-ic svg{width:22px;height:22px}
+.ea-t{flex:1;min-width:0}
+.ea-t b{display:block;font-size:18px;line-height:1.05;font-weight:900}
+.ea-t small{display:block;margin-top:3px;font-size:12px;font-weight:700;opacity:.75}
+.ea-go{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2px solid currentColor}
+.ea-go svg{width:16px;height:16px}
+@media (max-width:760px){html body .evacts{grid-template-columns:1fr}}
+html.dark .ea-cal{background:#F1EFE6;color:#0D0D0D;border-color:#F1EFE6}
+html.dark .ea-cal .ea-ic{background:#0D0D0D;color:#F1EFE6}
+/* ecrã de entrada do jogo: título grande + começar ao centro, moedas numa caixa só em rodapé */
+.overlay .box.rules{width:100%;max-width:760px!important;min-height:100%;margin-block:0;gap:0!important;justify-content:space-between}
+.rules .ghead{margin-block:auto;display:flex;flex-direction:column;align-items:center;gap:14px;padding-block:12px}
+.overlay .rules .big{font-size:clamp(40px,6vw,64px);line-height:.98;letter-spacing:-.01em;text-wrap:balance;max-width:760px}
+.rules .big .vdm{background:var(--yellow);color:#0D0D0D;padding:0 .18em;border-radius:.12em;display:inline-block;transform:rotate(-2deg)}
+.overlay .rules .gsub{opacity:.7;font-size:13px;letter-spacing:.02em}
+.overlay .rules .btn{margin-top:6px}
+.rules .coinrules{grid-template-columns:1fr 1fr;gap:0;background:none;border:0;border-radius:0;padding:0 0 4px;flex:none}
+.rules .coinrules .col,.rules .coinrules .col.good,.rules .coinrules .col.bad,html.dark .rules .coinrules .col{background:none;border:0;border-radius:0;padding:0 12px;color:inherit}
+.rules .coinrules .col.bad{border-left:2px dashed color-mix(in srgb,var(--ink) 30%,transparent)}
+.rules .coinrules h4{display:inline-block;margin:0 0 6px;font-size:11px;padding:2px 8px;border-radius:99px;color:#0D0D0D}
+.rules .coinrules .good h4{background:#EAFF00}
+.rules .coinrules .bad h4{background:#C9B3FF}
+.rules .coinrules ul{gap:3px}
+.rules .coinrules li{font-size:12px;gap:8px}
+.rules .coinrules img{width:22px;height:22px;border-width:1.5px}
+.rules .coinrules .col{display:flex;flex-direction:column;align-items:center;text-align:center}
+.rules .coinrules ul{width:max-content;margin-inline:auto}
+.rules .coinrules{width:100%;max-width:480px;align-self:center}
+.rules .coinrules li{justify-content:flex-start}
+.rules .coinrules li b{margin-left:2px}
+@media (max-width:700px){
+  .overlay .rules .big{font-size:36px}
+  .rules .coinrules{padding:0}
+  .rules .coinrules .col,html.dark .rules .coinrules .col{padding:0 8px}
+  .rules .coinrules li{font-size:11px;gap:6px}
+  .rules .coinrules img{width:20px;height:20px}
+}
+/* moedas em pastilhas: uma fila boa (amarela) e uma fila má (lilás), tudo ao centro */
+.overlay .rules .coinrules{display:flex;flex-direction:column;align-items:center;gap:6px;max-width:none;padding:0 0 6px}
+.overlay .rules .coinrules .col{padding:0;border:0!important;background:none!important}
+.overlay .rules .coinrules h4{display:none}
+.overlay .rules .coinrules ul{width:auto;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:6px}
+.overlay .rules .coinrules li{gap:6px;padding:3px 10px 3px 3px;border-radius:99px;font-size:12px;line-height:1;color:#0D0D0D;white-space:nowrap}
+.overlay .rules .coinrules .good li{background:#EAFF00}
+.overlay .rules .coinrules .bad li{background:#C9B3FF}
+.overlay .rules .coinrules li b{margin-left:0;font-weight:900}
+.overlay .rules .coinrules img{width:22px;height:22px;border:1.5px solid #0D0D0D}
+.rules .big .vdm{line-height:1;padding:.1em .22em .05em;vertical-align:baseline}
+.overlay .rules .big svg.vdm{display:inline-block;height:1.5em;width:auto;aspect-ratio:363.21/100.21;vertical-align:-.36em;background:none;padding:0;transform:none;margin:0 -.04em 0 -.1em}
+#welcome,html body .welcome{display:none!important}
+@media (max-width:700px){
+  .overlay .rules .coinrules ul{flex-wrap:nowrap;gap:4px}
+  .overlay .rules .coinrules li{gap:4px;padding:2px 7px 2px 2px;font-size:10.5px}
+  .overlay .rules .coinrules img{width:18px;height:18px}
+}
+/* "jogador" sempre alinhado com a foto + nome */
+html body .rank thead th.plh,html body .rank td.pl{padding-left:8px!important;padding-right:8px!important}
+.rank thead th.plh span{display:block;width:min(220px,100%);margin:0 auto;text-align:left}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -1067,7 +1136,10 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
       <div class="aboutText">
         <p class="lede">O Rally da Gineta é a festa de Natal de um grupo de amigos de longa data.</p>
         <p>Acontece sempre no primeiro sábado antes do Natal: este ano é a <b>19 de dezembro</b>, com encontro às <b>13h00</b> no <b>Café do Zé, em Valpedre</b>. O objetivo é simples: juntar os amigos, estar com a família e, pelo caminho, ajudar uma associação de animais.</p>
-        <div class="evacts"><button class="btn" type="button" data-cal><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4M12 13v4M10 15h4"/></svg>pôr no calendário</button><a class="btn alt" data-wa target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z" stroke-width="1.6"/></svg>partilhar no whatsapp</a></div>
+        <div class="evacts">
+          <button class="eact ea-cal" type="button" data-cal><span class="ea-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4M12 13v4M10 15h4"/></svg></span><span class="ea-t"><b>pôr no calendário</b><small>19.12 · 13h00</small></span><span class="ea-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+          <a class="eact ea-wa" data-wa target="_blank" rel="noopener"><span class="ea-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z" stroke-width="1.6"/></svg></span><span class="ea-t"><b>chamar a malta</b><small>partilhar no whatsapp</small></span><span class="ea-go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+        </div>
       </div>
       <div class="aboutHelp">
         <span class="lbl">Traz uma ajuda</span>
@@ -1114,7 +1186,6 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
     <h2 class="h2">Pensas que és <br class="mbr">o Vandamme?</h2>
     <div class="challenge" id="challenge" hidden></div>
     <div class="game" id="game">
-      <div class="gtitle">pensas que és o vandamme?</div>
       <div class="gbar">
         <div class="cafe" id="lvlChip"><span class="badge" id="lvlNum">01</span><span><span id="lvlName">Café do Zé</span><small id="lvlInfo">Nível 1 de 6 · meta 50</small></span></div>
         <div class="gstats" id="hud">
@@ -1133,14 +1204,15 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
         <canvas class="speed" id="speed" aria-hidden="true"></canvas>
         <div class="overlay" id="ov">
           <div class="box rules" id="ovBox">
-            <div class="kicker">Rally da gineta · o jogo</div>
-            <div class="big">mas tu pensas mesmo que és o vandamme?</div>
-            <p class="small">6 cafés · 15 segundos em cada um · chega à meta para passar ao café seguinte</p>
-            <div class="coinrules">
-              <div class="col good"><h4>Dão pontos</h4><ul id="goodList"></ul></div>
-              <div class="col bad"><h4>Tiram pontos</h4><ul id="badList"></ul></div>
+            <div class="ghead">
+              <div class="big">mas tu pensas mesmo que és o <svg class="vdm" role="img" aria-label="vandamme" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 363.21 100.21"><rect fill="#eafe00" x="1.4" y="8.44" width="360.42" height="83.33" rx="9.21" ry="9.21" transform="translate(-2.26 9.06) rotate(-2.84)"/><g fill="#231f20"><path d="M50.4,74.51c-.05,1.05-.44,1.94-1.16,2.64-.72.71-1.64,1.09-2.75,1.15-2.12.1-3.67-.91-4.66-3.05-2.54-5.55-6.44-13.83-11.67-24.84-.3-.62-.47-1.21-.5-1.77-.06-1.13.35-2.11,1.23-2.95.87-.83,1.9-1.28,3.07-1.33,1.8-.09,3.13.67,3.99,2.29,1.32,2.48,3.94,8.3,7.87,17.46.99-2.42,2.34-6.11,4.06-11.05.51-1.64,1.31-3.94,2.4-6.9.78-1.72,2.03-2.62,3.78-2.71,1.17-.06,2.24.28,3.19,1.01.95.73,1.46,1.67,1.51,2.83.04.75-1.45,4.99-4.48,12.71-2.46,6.3-4.42,11.14-5.87,14.51Z"/><path d="M92.18,76.5c-.96.05-2.54-.81-4.730-2.57-1.88,1.02-3.55,1.8-4.99,2.34-1.44.54-2.68.84-3.71.89-5.05.25-8.91-.91-11.57-3.49-2.66-2.58-4.13-6.56-4.39-11.96-.25-5.05,1.4-9.47,4.96-13.25,3.55-3.78,7.93-5.8,13.13-6.06,1.99-.1,4.33.35,7,1.34,3.23,1.19,4.89,2.68,4.98,4.47.04.75-.17,1.41-.63,2-.17.84-.28,1.89-.33,3.16-.05,1.26-.04,2.73.05,4.41.2,3.97.62,6.81,1.27,8.52.07.18.61,1.24,1.61,3.17.91,1.75,1.37,2.74,1.38,2.99.05,1.1-.32,2.04-1.14,2.8-.81.77-1.78,1.18-2.89,1.24ZM83.33,55.65c-.03-.67-.02-1.44.03-2.32.05-.88.14-1.85.28-2.93-.43-.19-.81-.32-1.14-.4-.33-.08-.61-.11-.84-.1-2.85.14-5.29,1.38-7.32,3.72-2.03,2.34-2.97,4.98-2.82,7.91.14,2.81.75,4.9,1.82,6.26,1.08,1.36,2.62,2,4.64,1.9,1.3-.06,2.52-.34,3.66-.83,1.14-.49,2.21-1.18,3.19-2.07-.88-4.96-1.38-8.68-1.5-11.15Z"/><path d="M125.65,75.34c-2.58.13-4.08-1.07-4.5-3.59-.4-2.15-.8-4.3-1.2-6.47-.43-2.29-.69-4.45-.79-6.49-.03-.54-.04-1.48-.03-2.8,0-1.32,0-2.26-.03-2.81,0-.15,0-.52,0-1.12.01-.6,0-1.09,0-1.47-.09-1.74-.55-2.59-1.39-2.55-1.8.09-3.5,1.33-5.11,3.73-1.61,2.4-2.82,5.39-3.62,8.98,0,.71-.04,1.66-.12,2.85-.07.97-.08,1.92-.04,2.84.03.6,0,1.51-.07,2.73-.08,1.22-.1,2.13-.07,2.73.06,1.22-.3,2.26-1.09,3.11s-1.81,1.3-3.07,1.36c-1.26.06-2.32-.29-3.17-1.05-.86-.76-1.32-1.75-1.38-2.97-.03-.6-.14-1.5-.32-2.7-.19-1.2-.29-2.1-.32-2.7-.1-2.05-.1-4.91.02-8.58.11-3.67.12-6.53.02-8.58-.03-.64-.12-1.59-.25-2.86-.14-1.27-.22-2.21-.25-2.83-.06-1.2.32-2.21,1.13-3.03.81-.82,1.83-1.26,3.07-1.32,2.75-.14,4.3,1.44,4.65,4.72l.05.34c2.91-3.23,6.06-4.94,9.46-5.1,3.96-.2,6.78,1.32,8.46,4.56,1.12,2.17,1.79,5.47,2,9.9l.11,2.23c.03.97.05,1.650.07,2.05.08,1.64.41,3.73.99,6.29.58,2.56.91,4.64.99,6.26.06,1.17-.31,2.17-1.11,2.99-.8.82-1.82,1.26-3.06,1.32Z"/><path d="M155.93,39.91c-.08-7.16,0-12.12.24-14.86.23-2.49,1.53-3.8,3.9-3.91,1.24-.06,2.25.29,3.05,1.06.79.77,1.22,1.73,1.28,2.9.15,3.07.14,7.66-.03,13.76-.17,6.1-.18,10.69-.03,13.76.37,7.5.86,12.5,1.47,15.02.08.34.13.64.14.92.06,1.17-.31,2.14-1.12,2.94-.8.79-1.76,1.22-2.87,1.27-1.55.08-2.74-.56-3.56-1.9-1.38.93-2.83,1.57-4.35,1.9s-3.09.55-4.73.63c-4.7.23-8.67-1.07-11.92-3.92-3.32-2.9-5.1-6.73-5.33-11.47-.28-5.64,1.09-10.28,4.1-13.91,3.02-3.63,7.09-5.570,12.23-5.83,1.57-.08,2.99.02,4.24.29,1.25.27,2.35.73,3.28,1.35ZM155.79,49.85c-.76-1.29-1.71-2.23-2.85-2.82-1.14-.6-2.48-.85-4.01-.78-3.1.15-5.39,1.17-6.85,3.04-1.46,1.87-2.11,4.6-1.93,8.18.11,2.26,1.05,4.16,2.81,5.7,1.76,1.53,3.75,2.24,5.97,2.13,1.62-.08,2.83-.33,3.65-.75.55-.28,1.48-1,2.79-2.16.34-.31.67-.65.99-1.03-.09-1-.28-4.84-.57-11.51Z"/><path d="M199.55,71.17c-.96.05-2.54-.81-4.73-2.57-1.88,1.02-3.55,1.8-4.99,2.34-1.44.54-2.68.84-3.71.89-5.05.25-8.91-.91-11.57-3.49-2.66-2.58-4.13-6.56-4.39-11.96-.25-5.05,1.4-9.47,4.96-13.25,3.55-3.78,7.93-5.8,13.13-6.06,1.99-.1,4.33.35,7,1.34,3.23,1.19,4.89,2.68,4.98,4.47.04.75-.17,1.41-.63,2-.17.84-.28,1.89-.33,3.15-.05,1.26-.04,2.73.05,4.42.2,3.97.62,6.81,1.27,8.52.07.18.61,1.24,1.61,3.17.91,1.75,1.37,2.74,1.38,2.99.05,1.1-.32,2.04-1.14,2.8-.81.77-1.78,1.18-2.89,1.24ZM190.69,50.32c-.03-.67-.02-1.44.03-2.32.05-.88.14-1.85.28-2.93-.43-.19-.81-.32-1.14-.4-.33-.08-.61-.11-.84-.1-2.85.14-5.29,1.38-7.32,3.72-2.03,2.34-2.97,4.98-2.82,7.91.14,2.81.75,4.9,1.82,6.26,1.08,1.37,2.62,2,4.64,1.9,1.3-.06,2.52-.34,3.66-.83,1.14-.49,2.21-1.18,3.19-2.07-.88-4.96-1.38-8.68-1.5-11.15Z"/><path d="M214.88,40.77c2.98-3.83,5.89-5.81,8.72-5.95,3.23-.16,5.66.95,7.29,3.33,1.22-1.2,2.6-2.12,4.12-2.76,1.52-.64,3.19-1.01,4.99-1.1,4.11-.2,7,1.7,8.67,5.72.33.82.93,3.64,1.77,8.46.76,3.37,1.79,8.99,3.11,16.87.14,1.19-.22,2.2-1.08,3.02-.86.82-1.9,1.26-3.12,1.32-2.41.12-3.89-1.01-4.42-3.38-.48-2.14-1.02-5.17-1.62-9.1-.63-4.3-1.13-7.34-1.49-9.13-.75-3.73-1.57-5.57-2.45-5.52-.48.02-1.56.56-3.23,1.61s-2.89,1.94-3.65,2.67c.12,2.39.57,5.82,1.36,10.28.82,4.56,1.28,7.99,1.39,10.27.06,1.2-.3,2.21-1.08,3.05s-1.8,1.29-3.06,1.35c-1.26.06-2.32-.29-3.17-1.04s-1.32-1.73-1.38-2.93c-.12-2.39-.55-5.9-1.29-10.52-.75-4.62-1.18-8.12-1.29-10.52-.07-1.34-.24-2.41-.51-3.19-2.36,1.53-4.69,3.98-6.98,7.38-.1.15-.26.38-.5.69.13,4.24.25,7.57.37,9.98.03.59.05,1.38.05,2.38,0,1,.02,1.74.05,2.22.06,1.13-.36,2.05-1.25,2.74-.81.65-1.83,1.01-3.07,1.07-1.78.09-3.03-.63-3.73-2.15-.49-1.03-.8-2.68-.91-4.97l-.58-11.7c-.05-1.05-.17-2.58-.35-4.6-.18-2.02-.3-3.55-.35-4.6-.09-1.87.16-3.57.75-5.11.72-1.93,1.83-2.93,3.32-3,1.17-.06,2.25.35,3.21,1.21.97.87,1.48,1.85,1.53,2.94-.02-.44-.07.47-.15,2.72Z"/><path d="M264.93,38.28c2.98-3.83,5.89-5.81,8.72-5.95,3.23-.16,5.66.95,7.29,3.33,1.22-1.2,2.6-2.12,4.12-2.76,1.52-.64,3.19-1.01,4.99-1.1,4.11-.2,7,1.7,8.67,5.72.33.82.93,3.64,1.77,8.46.76,3.37,1.79,8.99,3.11,16.87.14,1.19-.22,2.2-1.08,3.02-.86.82-1.9,1.26-3.12,1.32-2.41.12-3.89-1.01-4.42-3.38-.48-2.14-1.02-5.17-1.62-9.1-.63-4.3-1.13-7.34-1.49-9.13-.75-3.73-1.57-5.57-2.45-5.52-.48.02-1.56.56-3.23,1.61-1.67,1.05-2.89,1.94-3.65,2.67.12,2.39.57,5.82,1.36,10.28.82,4.56,1.28,7.99,1.39,10.27.06,1.2-.3,2.21-1.08,3.05s-1.8,1.29-3.06,1.35c-1.26.06-2.32-.29-3.17-1.04-.86-.76-1.32-1.73-1.38-2.93-.12-2.39-.55-5.9-1.29-10.52-.75-4.62-1.18-8.12-1.29-10.52-.07-1.34-.24-2.41-.51-3.19-2.36,1.53-4.69,3.99-6.98,7.38-.1.15-.26.38-.5.69.13,4.24.25,7.57.37,9.98.03.59.05,1.38.05,2.38,0,1,.02,1.74.05,2.22.06,1.13-.36,2.05-1.25,2.74-.81.65-1.83,1.01-3.07,1.07-1.78.09-3.03-.63-3.73-2.15-.49-1.03-.79-2.68-.91-4.97l-.58-11.7c-.05-1.05-.17-2.58-.35-4.6-.18-2.02-.3-3.55-.35-4.6-.09-1.87.16-3.57.75-5.11.72-1.93,1.83-2.93,3.32-3,1.17-.06,2.25.35,3.21,1.21.97.87,1.48,1.85,1.53,2.94-.02-.44-.07.47-.15,2.72Z"/><path d="M324.14,64.7c-5.01.25-9.17-.74-12.48-2.98-3.65-2.47-5.6-6.1-5.84-10.91-.26-5.31.91-9.86,3.52-13.67,2.9-4.22,6.98-6.46,12.25-6.73,3.65-.18,6.71.26,9.18,1.31,3.24,1.4,4.95,3.73,5.11,7,.12,2.31-1.07,4.42-3.56,6.33-1.13.88-3.43,2.19-6.9,3.94l-10.37,5.21c1.06,1.04,2.32,1.8,3.77,2.27,1.45.47,3.1.67,4.95.57,2.81-.14,5.16-.83,7.05-2.08,1.69-1.11,3.06-1.7,4.11-1.75,2.18-.11,3.32.9,3.43,3.01.12,2.39-1.54,4.43-4.96,6.11-2.87,1.4-5.96,2.19-9.25,2.35ZM321.96,38.04c-1.95.1-3.58.83-4.9,2.2-1.32,1.37-2.33,3.38-3.04,6.02,2.32-1.15,4.63-2.28,6.93-3.4,2.77-1.42,4.96-2.72,6.59-3.89-1.44-.73-3.3-1.03-5.56-.92Z"/></g></svg>?</div>
+              <p class="small gsub">6 cafés · 15 s em cada · chega à meta</p>
+              <button class="btn" type="button" data-start>COMEÇAR</button>
             </div>
-            <button class="btn" type="button" data-start>COMEÇAR</button>
+            <div class="coinrules">
+              <div class="col good"><h4>dão pontos</h4><ul id="goodList"></ul></div>
+              <div class="col bad"><h4>tiram pontos</h4><ul id="badList"></ul></div>
+            </div>
           </div>
         </div>
         <div class="shutter" id="shutter" aria-hidden="true"><div class="plate">Café do Zé</div><div class="vs" id="vsBox"></div></div>
@@ -1155,10 +1227,9 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
 <!-- 06 RANKING -->
 <section id="ranking" class="sec">
   <div class="wrap">
-    <h2 class="h2">Classificação!</h2>
     <div class="rank">
       <table>
-        <thead><tr><th scope="col">POSIÇÃO</th><th scope="col">JOGADOR</th><th scope="col">PONTOS</th></tr></thead>
+        <thead><tr><th scope="col">POSIÇÃO</th><th scope="col" class="plh"><span>JOGADOR</span></th><th scope="col">PONTOS</th></tr></thead>
         <tbody id="rankBody"></tbody>
       </table>
     </div>
@@ -1177,7 +1248,7 @@ const NSS='vector-effect="non-scaling-stroke"';
 const KINDS={
   fino:{pts:10, w:45, label:"Fino"},
   superbock:{pts:30, w:13, label:"Super Bock"},
-  gineta:{pts:50, w:0, label:"Moeda da gineta"},
+  gineta:{pts:50, w:0, label:"Gineta"},
   agua:{pts:-20, w:17, label:"Copo de água"},
   sagres:{pts:-30, w:12, label:"Sagres"},
   salazar:{pts:-50, w:8, label:"Salazar"}
@@ -1186,12 +1257,12 @@ const ICON={fino:"a-e658686587.webp",superbock:"a-5b78d35b70.webp",gineta:"a-a40
 const FLAT={fino:"a-082ce1b572.webp",superbock:"a-c779d7b66d.webp",gineta:"a-aad58bf19e.webp",agua:"a-11eaef3519.webp",sagres:"a-215a84d949.webp",salazar:"a-00d38e112b.webp"};
 function medal(k){return `<img src="${ICON[k]}" alt="">`}
 const CAFES = [
-  {n:"Café do Zé", x:80, y:280, esp:"Pregos em pão", maps:"https://www.google.com/maps/search/?api=1&query=41.1313746,-8.3049297"},
+  {n:"Café do Zé", x:101, y:280, esp:"Pregos em pão", maps:"https://www.google.com/maps/search/?api=1&query=41.1313746,-8.3049297"},
   {n:"Café Portal", x:589, y:280, esp:"Vinho do Porto", maps:"https://www.google.com/maps/search/?api=1&query=41.1294966,-8.3056091"},
-  {n:"Café Aveleda", x:138, y:576, esp:"Vinho verde", maps:"https://www.google.com/maps/search/?api=1&query=41.1153369,-8.2955053"},
+  {n:"Café Aveleda", x:101, y:576, esp:"Vinho verde", maps:"https://www.google.com/maps/search/?api=1&query=41.1153369,-8.2955053"},
   {n:"Café do Manel", x:101, y:897, esp:"Petiscos", maps:"https://www.google.com/maps/search/?api=1&query=41.1161641,-8.2932288"},
   {n:"Manjar", x:422, y:897, esp:"Cachorro", maps:"https://www.google.com/maps/search/?api=1&query=41.1221256,-8.2946856"},
-  {n:"Café Radikal", x:746, y:847, esp:"Fininhos", maps:"https://www.google.com/maps/search/?api=1&query=41.1241725,-8.2947625"}
+  {n:"Café Radikal", x:826, y:847, esp:"Fininhos", maps:"https://www.google.com/maps/search/?api=1&query=41.1241725,-8.2947625"}
 ];
 const pad = n => String(n).padStart(2,"0");
 const $ = id => document.getElementById(id);
