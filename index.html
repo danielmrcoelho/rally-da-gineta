@@ -612,6 +612,33 @@ html.dark .ea-cal .ea-ic{background:#0D0D0D;color:#F1EFE6}
 /* "jogador" sempre alinhado com a foto + nome */
 html body .rank thead th.plh,html body .rank td.pl{padding-left:8px!important;padding-right:8px!important}
 .rank thead th.plh span{display:block;width:min(220px,100%);margin:0 auto;text-align:left}
+/* ecrã entre cafés: menos texto, tudo em blocos */
+.overlay .box.lv{gap:18px!important}
+.lv .lvhead{display:flex;flex-direction:column;align-items:center;gap:4px}
+.lv .lvpts{font-size:var(--t-m)}
+.lv .lvpts b{font-size:1.25em}
+.lv .lvcard{display:flex;flex-direction:column;align-items:center;gap:8px}
+.lv .lvn{font-size:12px;font-weight:700;letter-spacing:.08em;opacity:.65}
+.lv .bafo{margin:0}
+@media (max-width:700px){.overlay .box.lv{gap:14px!important}}
+/* ecrã final: título, pontos, caixa, botões lado a lado */
+.overlay .box.fin{gap:12px!important;width:100%;max-width:300px;padding-inline:20px;box-sizing:border-box}
+.fin .finpts{font-size:var(--t-m)}
+.fin .finpts b{font-size:1.25em}
+.fin .rtitle{margin:2px 0 0}
+.fin #ovMsg:empty{display:none}
+.fin #ovMsg{opacity:.7}
+.overlay .fin .finbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:4px}
+.overlay .fin .finbtns .btn{height:40px;min-width:0;padding:0 8px;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:6px;margin:0}
+.overlay .fin .finbtns .btn svg{width:16px;height:16px;flex:none}
+.overlay .fin .finagain{width:100%;height:44px;min-width:0;margin-top:0;font-size:15px}
+/* entrada no café: só o nome, a crescer */
+.shutter .cname{font-weight:900;font-size:clamp(44px,11vw,96px);line-height:1;letter-spacing:-.01em;text-align:center;text-transform:lowercase;color:#0D0D0D;text-wrap:balance;max-width:90%;margin:0 auto;opacity:0;transform:scale(.3)}
+.shutter.is-vs.closed .cname{animation:cnameIn .7s cubic-bezier(.2,1.4,.4,1) .15s forwards}
+@keyframes cnameIn{0%{opacity:0;transform:scale(.3)}60%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.shutter .cname{opacity:1;transform:none}.shutter.is-vs.closed .cname{animation:none}}
+.fin .rtitle{white-space:nowrap;max-width:none}
+.board .popwin{box-shadow:none!important;filter:none!important}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -913,7 +940,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 
 .speed{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 /* janelinhas do vandamme: aparecem por cima das moedas e é preciso fechá-las */
-.popwin{position:absolute;z-index:6;width:170px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);box-shadow:6px 6px 0 var(--ink);overflow:hidden;animation:popIn .25s cubic-bezier(.3,1.6,.5,1)}
+.popwin{position:absolute;z-index:6;width:170px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);box-shadow:none;overflow:hidden;animation:popIn .25s cubic-bezier(.3,1.6,.5,1)}
 .popwin .bar{display:flex;align-items:center;justify-content:space-between;gap:6px;background:var(--yellow);border-bottom:var(--sw) solid var(--ink);padding:4px 4px 4px 10px;font-weight:700;font-size:12px}
 .popwin .x{width:30px;height:30px;display:grid;place-items:center;padding:0;background:var(--ink);color:var(--yellow);border:0;border-radius:8px;font-weight:700;font-size:16px;line-height:1;cursor:pointer}
 .popwin .body{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;text-align:center;font-weight:700;font-size:13px;color:var(--ink)}
@@ -980,7 +1007,7 @@ html:not(.paged) .wchange{display:none}
   html.paged #registo{display:none!important}
   /* registo dentro da página do jogo */
   html.paged #jogo .welcome{margin:40px 0 14px}
-  html.paged #jogo .reg{margin:40px 0 18px}
+  html.paged #jogo .reg{margin:0 0 18px}
   html.paged.has-player #jogo .reg{display:none}
   html.paged.has-player.edit-player #jogo .reg{display:grid}
   html.paged.has-player #jogo .welcome + .reg + .challenge,html.paged #jogo .reg + .challenge{margin-top:0}
@@ -1904,7 +1931,7 @@ function shut(label,mid){
     busy=true;
     const ci=CAFES.findIndex(c=>c.n===label), vs=$("vsBox");
     shutter.classList.toggle("is-vs",ci>=0);
-    if(ci>=0){ vs.innerHTML=vsHtml(ci); vs.querySelector(".vs-me b").textContent=player?player.name:"malta"; vs.querySelector(".vs-cafe b").textContent=CAFES[ci].n; void vs.offsetWidth; }
+    if(ci>=0){ vs.innerHTML='<div class="cname"></div>'; vs.querySelector(".cname").textContent=CAFES[ci].n; void vs.offsetWidth; }
     else shutter.querySelector(".plate").textContent=label;
     shutter.classList.add("closed"); sfx.shutter(); if(ci>=0) setTimeout(()=>sfx.vs&&sfx.vs(),300);
     const hold=ci>=0?1100:650;
@@ -1913,7 +1940,8 @@ function shut(label,mid){
 }
 function levelScreen(head){
   ov.hidden=false; ovBox.className="box";
-  ovBox.innerHTML=`${stepsHtml(lvl)}${head||""}<p class="small">Nível ${lvl+1} de ${CAFES.length}</p>${cafeCard(lvl)}<p>Especialidade: ${CAFES[lvl].esp}</p><p class="small">Faz <b>${GOALS[lvl]} pontos</b> em 15 segundos para passar.</p>${bafo(lvl)}<button class="btn" type="button" id="enter">ENTRAR NO CAFÉ</button>`;
+  ovBox.className="box lv";
+  ovBox.innerHTML=`${stepsHtml(lvl)}${head||""}<div class="lvcard"><span class="lvn">nível ${lvl+1} de ${CAFES.length}</span>${cafeCard(lvl)}</div>${bafo(lvl)}<button class="btn" type="button" id="enter">ENTRAR NO CAFÉ</button>`;
   ovBox.querySelector(".cafe span:last-child").textContent=CAFES[lvl].n;
   $("enter").addEventListener("click",play);
 }
@@ -2002,7 +2030,7 @@ function endLevel(){
   if(passed && lvl<CAFES.length-1){
     sfx.win();
     const done=lvl, got=lvlPts; lvl++;
-    shut(CAFES[lvl].n,()=>{clearBoard();setBg(lvl);paintLevel();levelScreen(`<div class="big">Passaste!</div><p>Fizeste ${got} pontos no ${CAFES[done].n}. Segue para o próximo café.</p>`)});
+    shut(CAFES[lvl].n,()=>{clearBoard();setBg(lvl);paintLevel();levelScreen(`<div class="lvhead"><div class="big">Passaste!</div><p class="lvpts">fizeste <b>${got}</b> pontos</p></div>`)});
     return;
   }
   shut(passed?"Rally completo":"Fechado",()=>{clearBoard();finish(passed)});
@@ -2020,14 +2048,16 @@ async function finish(won){
   ov.hidden=false; ovBox.className="box";
   const tt=rankTitle(won);
   const vs=challenge?(pts>challenge.pts?`<p class="small"><b>Bateste o ${esc(challenge.de)}!</b> (${challenge.pts} pontos)</p>`:`<p class="small">O ${esc(challenge.de)} ainda manda: fez ${challenge.pts} pontos.</p>`):"";
-  ovBox.innerHTML = (won
-    ? `${stepsHtml(CAFES.length)}<div class="big">Rally completo!</div><p>Passaste pelos ${CAFES.length} cafés com ${pts} pontos.</p>`
-    : byeSalazar
-    ? `${stepsHtml(lvl)}<div class="big">Game over!</div><p><b>O Salazar quer que voltes para casa.</b></p><p class="small">Ficaste no ${CAFES[lvl].n} com ${pts} pontos.</p>`
-    : `${stepsHtml(lvl)}<div class="big">Ficaste no ${CAFES[lvl].n}</div><p>Fizeste ${lvlPts} de ${GOALS[lvl]} pontos neste café. Total: ${pts} pontos.</p>`)
-    + `<div class="rtitle">${tt}</div>${vs}<p id="ovMsg" class="small"></p>
-       <div class="finbtns"><button class="btn alt" type="button" id="shareBtn">PARTILHAR</button><a class="btn alt" id="dareBtn" target="_blank" rel="noopener">DESAFIAR NO WHATSAPP</a></div>
-       <button class="btn" type="button" data-start>JOGAR OUTRA VEZ</button>`;
+  ovBox.className="box fin";
+  const boxT = byeSalazar ? "O Salazar mandou-te para casa" : tt;
+  const head = won ? "Rally completo!" : byeSalazar ? "Game over!" : `Ficaste no ${CAFES[lvl].n}`;
+  const WAI='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z" stroke-width="1.6"/></svg>';
+  const SHI='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M8 8l4-4 4 4M5 13v5a2 2 0 002 2h10a2 2 0 002-2v-5"/></svg>';
+  ovBox.innerHTML = `${stepsHtml(won?CAFES.length:lvl)}<div class="big">${head}</div><p class="finpts">fizeste <b>${pts}</b> pontos</p>`
+    + `<div class="rtitle">${esc(boxT)}</div>${vs}<p id="ovMsg" class="small"></p>
+       <div class="finbtns"><button class="btn alt" type="button" id="shareBtn">${SHI}PARTILHAR</button><a class="btn alt" id="dareBtn" target="_blank" rel="noopener">${WAI}DESAFIAR</a></div>
+       <button class="btn finagain" type="button" data-start>JOGAR OUTRA VEZ</button>`;
+  { const rt=ovBox.querySelector(".rtitle"); if(rt){ const max=Math.max(160,ov.clientWidth-40); let f=parseFloat(getComputedStyle(rt).fontSize)||18; while(rt.offsetWidth>max&&f>10){f-=.5;rt.style.fontSize=f+"px"} } }
   $("dareBtn").href=dareLink(tt);
   $("shareBtn").addEventListener("click",()=>shareCard(won,tt));
   const msg=$("ovMsg");
@@ -2044,9 +2074,9 @@ const SITE="https://rally-da-gineta.vercel.app/";
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function rankTitle(won){
   if(byeSalazar) return "O Salazar mandou-o para casa";
-  if(won) return pts>=900?"É o verdadeiro Vandamme":"Fez o rally todo. Respeito.";
+  if(won) return pts>=900?"És o verdadeiro Vandamme":"Fez o rally todo. Respeito.";
   if(pts<=0) return "Só bebeu água";
-  return ["Nem passou da porta do Zé","Ficou no Portal a ver o Porto","Afogou-se no verde da Aveleda","Ficou no Manel a chorar","Caiu no cachorro do Manjar","Quase! Os fininhos do Radikal foram demais"][lvl];
+  return ["Nem passou da porta do Zé","Ficar assim no Portal, não!","Afogou-se no verde do Aveleda","Eram só dois finos no Manel","O Joel fica contigo!","Os fininhos do Radikal venceram"][lvl];
 }
 function dareLink(tt){
   const nm=player?player.name:"Alguém";
