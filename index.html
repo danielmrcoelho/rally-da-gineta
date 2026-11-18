@@ -418,7 +418,7 @@ html body .about{margin-bottom:0!important}
 }
 /* telemóvel: mapa mais alto, ocupa o espaço da página */
 @media (max-width:760px){
-  html body .mapinner{aspect-ratio:auto!important;height:clamp(360px,calc(100svh - 470px),560px)!important}
+  html body .mapinner{aspect-ratio:auto!important;height:clamp(360px,calc(100svh - 482px - env(safe-area-inset-bottom,0px)),560px)!important}
   html body #percurso .lead{margin:0 0 14px!important}
   html body .mapbox .callout{margin-top:28px!important}
 }
@@ -505,6 +505,8 @@ html.dark .rank tr.me td{background:#3A3D12}
 html.dark .overlay{background:rgba(20,20,19,.9)!important}
 html.dark .btn:not(.alt){background:#F1EFE6!important;color:#0D0D0D!important;border-color:#F1EFE6!important}
 html.dark .btn:not(.alt) svg{color:#0D0D0D}
+/* modo escuro: botões amarelos sem contorno preto, para terem o mesmo tamanho visível que os claros */
+html.dark .btn.alt{border-color:#EAFF00!important}
 html.dark .board{background:#1F1F1D!important}
 html.dark .stack :is(.c3,.c4) .go{background:#EAFF00!important;color:#0D0D0D!important}
 html.dark .tabbar{box-shadow:0 0 0 2px #2E2E2B,0 8px 24px rgba(0,0,0,.5)!important}
@@ -639,6 +641,26 @@ html body .rank thead th.plh,html body .rank td.pl{padding-left:8px!important;pa
 @media (prefers-reduced-motion:reduce){.shutter .cname{opacity:1;transform:none}.shutter.is-vs.closed .cname{animation:none}}
 .fin .rtitle{white-space:nowrap;max-width:none}
 .board .popwin{box-shadow:none!important;filter:none!important}
+/* bússola (separador próprio) */
+.tabbar a span{white-space:nowrap}
+.compwrap{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.cdial{position:relative;width:min(80vw,340px);aspect-ratio:1;margin:18px auto 4px}
+.cdial .ptr{position:absolute;left:50%;top:-14px;transform:translateX(-50%);width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:24px solid var(--ink);z-index:3}
+.cdial .rose{position:absolute;inset:0;border-radius:50%;background:var(--yellow);border:var(--sw) solid #0D0D0D;box-shadow:0 0 0 6px var(--bg),0 0 0 9px var(--ink);will-change:transform}
+.cdial .rose svg{display:block;width:100%;height:100%}
+.cdial .hub{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;background:#0D0D0D;border:4px solid #EAFF00;z-index:3}
+.cdial svg text{text-transform:none;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Inter,Arial,sans-serif}
+#bussola .cread,#bussola .cmsg{font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Inter,Arial,sans-serif}
+#bussola .cread b{letter-spacing:-.02em;font-weight:800}
+.cread{display:flex;align-items:baseline;gap:10px;line-height:1}
+.cread b{font-size:44px;font-weight:900}
+.cread span{font-size:22px;font-weight:700;opacity:.55;font-variant-numeric:tabular-nums}
+.compwrap .cmsg{margin:0;font-size:14px;opacity:.7;max-width:280px}
+.compwrap .btn{min-width:220px}
+.compwrap .btn[hidden]{display:none}
+html.paged #bussola .h2{display:none!important}
+@media (min-width:761px){#bussola{padding-bottom:80px}#bussola .cdial{margin-top:44px}}
+html.paged #bussola .compwrap{min-height:calc(100svh - 124px - 98px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));justify-content:center}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -836,7 +858,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .sound{display:inline-flex;align-items:center;justify-content:center;width:48px;padding:0;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);font-weight:700;font-size:var(--t-xs)}
 .sound svg{width:24px;height:24px}
 .sound[aria-pressed="false"] .on,.sound[aria-pressed="true"] .off{display:none}
-.board{--lvbg:#F7F6F1;position:relative;height:min(560px,calc(100svh - 170px));min-height:440px;background:var(--lvbg);overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none;transition:background .4s ease}
+.board{--lvbg:#F7F6F1;position:relative;height:min(560px,calc(100svh - 170px - env(safe-area-inset-bottom,0px)));min-height:440px;background:var(--lvbg);overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none;transition:background .4s ease}
 .medal{position:absolute;left:0;top:0;width:84px;height:84px;padding:0;border:0;background:none;z-index:3;will-change:transform}
 .medal.big{width:112px;height:112px;z-index:4}
 .medal .spin{display:block;width:100%;height:100%;animation:spinin .55s cubic-bezier(.2,1.3,.5,1)}
@@ -909,7 +931,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
   .gbar .stopchip img{width:32px;height:32px}
   .gbar .stopchip span{display:none}
   .gbar .sound{order:4;width:44px;justify-self:auto}
-  .board{height:calc(100svh - 150px);min-height:440px;max-height:660px}
+  .board{height:calc(100svh - 150px - env(safe-area-inset-bottom,0px));min-height:440px;max-height:660px}
   .overlay{padding:12px}
   .overlay .box{gap:6px}
   .overlay .big{font-size:24px}
@@ -956,7 +978,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 /* ---------- site por páginas: uma secção de cada vez, a deslizar para o lado ---------- */
 html.paged main{position:relative;overflow-x:clip}
 html.paged main>section:not(.on):not(.leaving){display:none!important}
-html.paged main>section.on{display:flow-root;min-height:calc(100svh - 120px)}
+html.paged main>section.on{display:flow-root;min-height:calc(100svh - 120px - env(safe-area-inset-bottom,0px))}
 html.paged main>section.leaving{display:flow-root;position:absolute;left:0;right:0;top:0;pointer-events:none}
 html.paged main>section.in-next{animation:pgInR .55s cubic-bezier(.65,0,.35,1) both}
 html.paged main>section.out-next{animation:pgOutL .55s cubic-bezier(.65,0,.35,1) both}
@@ -997,7 +1019,7 @@ html:not(.paged) .wchange{display:none}
   .quick a{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;background:var(--cream);border:3px solid var(--ink);border-radius:var(--r);box-shadow:3px 3px 0 var(--ink);text-decoration:none;color:var(--ink);font-weight:700;font-size:13px}
   .quick a b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--yellow);border:3px solid var(--ink);font-size:10px}
   .quick a:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
-  html.paged .hero .stage{height:calc(100svh - 70px);min-height:560px;max-height:none}
+  html.paged .hero .stage{height:calc(100svh - 70px - env(safe-area-inset-bottom,0px));min-height:560px;max-height:none}
   /* enquadramento igual em todas as páginas: título logo abaixo do menu, setas no fundo */
   html.paged main>section.on,html.paged main>section.leaving{min-height:100svh;display:flex!important;flex-direction:column}
   html.paged .hero ~ .sec{padding-top:78px;padding-bottom:20px}
@@ -1040,8 +1062,11 @@ html:not(.paged) .wchange{display:none}
   .tabbar a.on{color:var(--ink);background:var(--yellow)}
   /* o menu de cima fica só com o logo; a navegação é em baixo */
   html.paged .pager{display:none}
-  html.paged .hero ~ .sec{padding-bottom:110px}
-  .board{height:calc(100svh - 240px)!important;min-height:380px!important}
+  html.paged .hero .stack{padding-bottom:calc(98px + env(safe-area-inset-bottom,0px))!important}
+html.paged #percurso .mapscroll{padding-bottom:0!important}
+/* regra: o fim de cada página fica sempre 24px acima da barra de baixo (inclui a zona segura do iPhone) */
+html.paged .hero ~ .sec{padding-bottom:calc(98px + env(safe-area-inset-bottom,0px))}
+  .board{height:calc(100svh - 240px - env(safe-area-inset-bottom,0px))!important;min-height:380px!important}
   html.paged .hero .tag{top:calc(var(--gh) * .86)}
 }
 
@@ -1100,7 +1125,7 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
   </nav>
 </header>
 
-<nav class="tabbar" aria-label="navegação"><a href="#inicio"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>início</span></a><a href="#percurso"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><span>mapa</span></a><a href="#evento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>evento</span></a><a href="#jogo"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3"/></svg><span>jogo</span></a></nav>
+<nav class="tabbar" aria-label="navegação"><a href="#inicio"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>início</span></a><a href="#percurso"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><span>mapa</span></a><a href="#evento"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>evento</span></a><a href="#jogo"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 01-10 0zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3"/></svg><span>jogo</span></a><a href="#bussola"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg><span>bússola</span></a></nav>
 <main>
 <!-- 01 INÍCIO -->
 <section id="inicio" class="hero">
@@ -1261,6 +1286,20 @@ footer .wrap{max-width:1280px;border-top:var(--sw) solid var(--ink);padding-bloc
       </table>
     </div>
     <div class="rankfoot"><span id="rankNote">A carregar a classificação…</span><span>Conta a melhor pontuação de cada jogador.</span></div>
+  </div>
+</section>
+<!-- 07 BÚSSOLA -->
+<section id="bussola" class="sec">
+  <div class="wrap compwrap">
+    <h2 class="h2">Bússola</h2>
+    <div class="cdial" id="cDial">
+      <span class="ptr" aria-hidden="true"></span>
+      <div class="rose" id="cRose"></div>
+      <span class="hub" aria-hidden="true"></span>
+    </div>
+    <div class="cread"><b id="cDir">norte</b><span id="cDeg">0°</span></div>
+    <p class="cmsg" id="cMsg">a bússola usa o sensor do teu telemóvel.</p>
+    <button class="btn" type="button" id="cGo">ativar bússola</button>
   </div>
 </section>
 </main>
@@ -1445,7 +1484,7 @@ const links=[...document.querySelectorAll(".nav a")];
   const main=document.querySelector("main"); if(!main) return;
   const allPages=[...main.querySelectorAll(":scope > section")]; if(!allPages.length) return;
   const pages=allPages.filter(p=>!(matchMedia("(max-width:760px)").matches&&p.id==="registo"));
-  const ids=pages.map(p=>p.id), names={inicio:"início",percurso:"percurso",evento:"evento",registo:"registo",jogo:"jogo",ranking:"ranking"};
+  const ids=pages.map(p=>p.id), names={inicio:"início",percurso:"percurso",evento:"evento",registo:"registo",jogo:"jogo",ranking:"ranking",bussola:"bússola"};
   const mq=matchMedia("(max-width:760px)");
   const regSec=document.getElementById("registo"), jogoWrap=document.querySelector("#jogo .wrap"), regBits=[...regSec.querySelectorAll(":scope .wrap > .welcome, :scope .wrap > .reg")];
   const regHome=regSec.querySelector(".wrap"), regAnchor=jogoWrap.querySelector(".h2");
@@ -2219,5 +2258,54 @@ $("soundBtn").addEventListener("click",()=>{
 })();
 </script>
 
+<script>
+/* bússola: a rosa dos ventos roda com o sensor do telemóvel e o N aponta sempre para norte */
+(function(){
+  const rose=document.getElementById("cRose"); if(!rose) return;
+  const read=document.getElementById("cDir"), deg=document.getElementById("cDeg"), msg=document.getElementById("cMsg"), go=document.getElementById("cGo");
+  const L=["N","NE","E","SE","S","SO","O","NO"], NAMES=["norte","nordeste","este","sudeste","sul","sudoeste","oeste","noroeste"];
+  let t="";
+  for(let i=0;i<120;i++){const a=i*3,big=i%10===0,mid=i%5===0;t+=`<line x1="150" y1="${big?14:mid?18:21}" x2="150" y2="30" stroke="#0D0D0D" stroke-width="${big?3.6:mid?2.4:1.3}" stroke-linecap="round" transform="rotate(${a} 150 150)"/>`}
+  for(let i=1;i<12;i++){const a=i*30;const r=104,x=150+r*Math.sin(a*Math.PI/180),y=150-r*Math.cos(a*Math.PI/180);t+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700" fill="#0D0D0D" opacity=".6" transform="rotate(${a} ${x} ${y})">${a}</text>`}
+  L.forEach((l,i)=>{const a=i*45,card=i%2===0,r=card?76:80,x=150+r*Math.sin(a*Math.PI/180),y=150-r*Math.cos(a*Math.PI/180);
+    if(l==="N") t+=`<g transform="rotate(0 ${x} ${y})"><text x="${x}" y="${y+1}" text-anchor="middle" dominant-baseline="central" font-size="38" font-weight="900" fill="#0D0D0D">N</text></g>`;
+  });
+  t+=`<path d="M150 102 L162 150 L150 142 L138 150 Z" fill="#0D0D0D"/><path d="M150 198 L162 150 L150 158 L138 150 Z" fill="none" stroke="#0D0D0D" stroke-width="3.5" stroke-linejoin="round"/>`;
+  rose.innerHTML=`<svg viewBox="0 0 300 300" aria-hidden="true">${t}</svg>`;
+  let cur=0,target=null,raf=0,on=false,got=false;
+  function loop(){raf=0;if(target==null)return;let d=((target-cur+540)%360)-180;cur+=d*.16;rose.style.transform=`rotate(${-cur}deg)`;if(Math.abs(d)>.15)raf=requestAnimationFrame(loop)}
+  function onOri(e){
+    let h=null;
+    if(typeof e.webkitCompassHeading==="number") h=e.webkitCompassHeading;
+    else if(typeof e.alpha==="number"&&(e.absolute||e.type==="deviceorientationabsolute")) h=360-e.alpha;
+    if(h==null) return; got=true;
+    const so=(screen.orientation&&screen.orientation.angle)||window.orientation||0;
+    h=((h+so)%360+360)%360; target=h; if(!raf) raf=requestAnimationFrame(loop);
+    const k=Math.round(h/45)%8; read.textContent=NAMES[k]; deg.textContent=Math.round(h)+"°";
+  }
+  function listen(){
+    if(on) return; on=true;
+    addEventListener("ondeviceorientationabsolute" in window?"deviceorientationabsolute":"deviceorientation",onOri,true);
+    go.hidden=true; msg.textContent="segura o telemóvel deitado, com o ecrã para cima.";
+    setTimeout(()=>{if(!got){msg.textContent="este aparelho não tem bússola. abre no telemóvel.";}},2500);
+  }
+  function start(){
+    const D=window.DeviceOrientationEvent;
+    if(!D){msg.textContent="este aparelho não tem bússola. abre no telemóvel.";go.hidden=true;return}
+    const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+    if(typeof D.requestPermission==="function"){
+      D.requestPermission().then(r=>{if(r==="granted"||!ios)listen();else msg.textContent="sem autorização para usar a bússola."}).catch(()=>{if(!ios)listen();else msg.textContent="sem autorização para usar a bússola."});
+    } else listen();
+  }
+  go.addEventListener("click",start);
+  // fora do iPhone não é preciso autorização: liga sozinha quando se abre a página
+  const ios=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  if(!ios&&matchMedia("(pointer:coarse)").matches){
+    const sec=document.getElementById("bussola");
+    new MutationObserver(()=>{if(sec.classList.contains("on"))start()}).observe(sec,{attributes:true,attributeFilter:["class"]});
+    if(location.hash==="#bussola") setTimeout(start,300);
+  }
+})();
+</script>
 </body>
 </html>
