@@ -418,7 +418,7 @@ html body .about{margin-bottom:0!important}
 }
 /* telemóvel: mapa mais alto, ocupa o espaço da página */
 @media (max-width:760px){
-  html body .mapinner{aspect-ratio:auto!important;height:clamp(360px,calc(100svh - 482px - env(safe-area-inset-bottom,0px)),560px)!important}
+  html body .mapinner{aspect-ratio:auto!important;height:clamp(360px,calc(100svh - 271px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px)),640px)!important}
   html body #percurso .lead{margin:0 0 14px!important}
   html body .mapbox .callout{margin-top:28px!important}
 }
@@ -661,6 +661,57 @@ html body .rank thead th.plh,html body .rank td.pl{padding-left:8px!important;pa
 html.paged #bussola .h2{display:none!important}
 @media (min-width:761px){#bussola{padding-bottom:80px}#bussola .cdial{margin-top:44px}}
 html.paged #bussola .compwrap{min-height:calc(100svh - 124px - 98px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));justify-content:center}
+/* bilhete do café: aparece ao tocar num café, com rotação 3D */
+#callout{display:none!important}
+.tkbox{position:fixed;inset:0;z-index:96;display:grid;place-items:center;padding:20px;overflow-y:auto;background:rgba(13,13,13,0);transition:background .35s ease;perspective:1100px}
+.tkbox[hidden]{display:none}
+.tkbox.on{background:rgba(13,13,13,.6)}
+.tkwrap{position:relative;width:min(340px,86vw);transform-style:preserve-3d;filter:drop-shadow(0 22px 40px rgba(0,0,0,.35))}
+.tk{position:relative;color:#0D0D0D;background:#F7F6F1;border-radius:30px;overflow:hidden;transform-style:preserve-3d;
+  --ny:58%;
+  -webkit-mask:radial-gradient(circle 15px at 0 var(--ny),#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 15px at 100% var(--ny),#0000 97%,#000) right/51% 100% no-repeat;
+  mask:radial-gradient(circle 15px at 0 var(--ny),#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 15px at 100% var(--ny),#0000 97%,#000) right/51% 100% no-repeat}
+.tkwrap.in{animation:tkIn .9s cubic-bezier(.2,1.25,.35,1) both}
+.tkwrap.out{animation:tkOut .35s cubic-bezier(.5,0,.8,.4) both}
+@keyframes tkIn{0%{opacity:0;transform:translateY(60px) rotateY(-110deg) rotateX(22deg) scale(.7)}55%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes tkOut{to{opacity:0;transform:translateY(40px) rotateY(80deg) rotateX(-12deg) scale(.8)}}
+@keyframes tkFloat{0%,100%{transform:rotateY(-7deg) rotateX(4deg)}50%{transform:rotateY(7deg) rotateX(-3deg)}}
+.tk .shine{position:absolute;inset:0;z-index:5;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.55) 45%,transparent 60%);background-size:250% 100%;background-position:var(--sx,120%) 0;mix-blend-mode:soft-light}
+.tk .art{position:relative;height:170px;margin:12px 12px 0;border-radius:22px;background:#EAFF00;overflow:hidden;display:flex;align-items:flex-end;justify-content:space-between;padding:16px 18px}
+.tk .art .num{position:absolute;right:10px;top:-8px;font-size:140px;font-weight:900;line-height:1;letter-spacing:-.06em;color:#0D0D0D}
+.tk .art .ring{position:absolute;left:-40px;top:-40px;width:170px;height:170px;border-radius:50%;border:16px solid #0D0D0D;opacity:.9}
+.tk .art .ring2{position:absolute;left:40px;top:70px;width:60px;height:60px;border-radius:50%;background:#C9B3FF;border:5px solid #0D0D0D}
+.tk .art .tag{position:relative;z-index:2;background:#0D0D0D;color:#EAFF00;font-weight:700;font-size:13px;padding:6px 12px;border-radius:99px;letter-spacing:.04em}
+.tk .ttl{padding:14px 22px 2px;font-size:28px;font-weight:900;line-height:1.05;text-align:center}
+.tk .sep{height:0;margin:11px 22px;border-top:3px dashed rgba(13,13,13,.25)}
+.tk .rows{display:grid;grid-template-columns:1fr auto;gap:12px 10px;padding:4px 24px}
+.tk .rows div:nth-child(even){text-align:right}
+.tk .rows small{display:block;font-size:12px;opacity:.5;margin-bottom:2px}
+.tk .rows b{font-size:17px}
+.tk .bars{display:flex;align-items:stretch;justify-content:space-between;gap:2px;height:34px;margin:6px 24px 4px}
+.tk .bars i{background:#0D0D0D;border-radius:1px}
+.tk .code{padding:0 24px;font-size:11px;opacity:.45;letter-spacing:.08em}
+.tk .go{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:8px;margin:12px 12px 12px;padding:8px;text-align:center;border-radius:99px;background:#0D0D0D;color:#F7F6F1;text-decoration:none;font-weight:700;font-size:16px}
+.tk .go .pin{width:44px;height:44px;border-radius:50%;background:#EAFF00;color:#0D0D0D;display:grid;place-items:center;flex:none}
+.tk .go .pin svg{width:22px;height:22px}
+.tk .go>span{display:flex;align-items:center;justify-content:center;height:44px;line-height:1}
+.tk .go .gt{white-space:nowrap;text-box:trim-both cap alphabetic}
+.tk .go .ar{opacity:.6}
+.tk .go .ar svg{width:22px;height:11px;display:block}
+.tkx{position:absolute;right:-8px;top:-8px;z-index:6;width:42px;height:42px;border-radius:50%;border:0;background:#0D0D0D;color:#EAFF00;display:grid;place-items:center;cursor:pointer;transform:translateZ(40px)}
+.tkx svg{width:18px;height:18px}
+.tk .rate{display:flex;align-items:center;justify-content:space-between;padding:0 18px 0 24px}
+.tk .rate small{font-size:12px;opacity:.5}
+.tk .stars{display:flex;gap:2px}
+.tk .stars button{width:38px;height:38px;padding:4px;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.tk .stars svg{width:28px;height:28px;fill:none;stroke:#0D0D0D;stroke-width:2;stroke-linejoin:round;transition:fill .15s}
+.tk .stars button.on svg{fill:#EAFF00}
+.tk .stars button.pop svg{animation:stPop .35s cubic-bezier(.3,1.8,.5,1)}
+@media (max-height:700px){.tk .art{height:120px}.tk .art .num{font-size:84px;top:-4px}.tk .rows{gap:6px 10px}.tk .bars{height:26px}.tk .sep{margin:8px 22px}.tk .ttl{font-size:24px}}
+@keyframes stPop{0%{transform:scale(.6)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.tkwrap.in,.tkwrap.out{animation:none}.tkwrap.idle .tk{animation:none}}
+/* entrada da app: sem o tremor/salto quando a moeda bate */
+.intro.hit{animation:none!important}
 @media (prefers-reduced-motion:reduce){.dood path{stroke-dashoffset:0}}
 .title{position:absolute;left:0;right:0;top:calc(var(--gh) * .64);z-index:2;margin:0;transform:translateY(-50%);font-size:8.6cqw;line-height:1;text-align:center;white-space:nowrap;letter-spacing:-.005em}
 .tag{position:absolute;left:50%;top:calc(var(--gh) * .86);z-index:3;display:flex;align-items:center;gap:10px;background:var(--cream);border:var(--sw) solid var(--ink);border-radius:var(--r);padding:6px 6px 6px 14px;text-align:left;transform:translate(-50%,-50%) rotate(-3deg)}
@@ -1330,6 +1381,7 @@ const CAFES = [
   {n:"Manjar", x:422, y:897, esp:"Cachorro", maps:"https://www.google.com/maps/search/?api=1&query=41.1221256,-8.2946856"},
   {n:"Café Radikal", x:826, y:847, esp:"Fininhos", maps:"https://www.google.com/maps/search/?api=1&query=41.1241725,-8.2947625"}
 ];
+window.CAFES=CAFES;
 const pad = n => String(n).padStart(2,"0");
 const $ = id => document.getElementById(id);
 const store = {
@@ -1383,8 +1435,10 @@ function select(i){
   $("coMaps").href=c.maps||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(c.n+" Valpedre Penafiel"));
   $("coMaps").setAttribute("aria-label","Abrir "+c.n+" no Google Maps (abre numa nova janela)");
   const NC=CAFES.length; $("coSub").textContent = i===0 ? `Partida · paragem 1 de ${NC}` : i===NC-1 ? `Chegada · paragem ${NC} de ${NC}` : `Paragem ${i+1} de ${NC}`;
+  if(window.openTicket && !select.silent) openTicket(i);
 }
-select(0);
+select.silent=true; select(0); select.silent=false;
+chips.querySelectorAll(".cafe").forEach(b=>b.setAttribute("aria-pressed","false"));
 /* rodinha que faz o circuito do Café do Zé ao Café Radikal; cada café dá um salto quando ela chega */
 (function(){
   const path=$("routePath"), wheel=$("wheel"), mapChips=[...chips.querySelectorAll(".cafe")];
@@ -2305,6 +2359,52 @@ $("soundBtn").addEventListener("click",()=>{
     new MutationObserver(()=>{if(sec.classList.contains("on"))start()}).observe(sec,{attributes:true,attributeFilter:["class"]});
     if(location.hash==="#bussola") setTimeout(start,300);
   }
+})();
+</script>
+<script>
+/* bilhete do café com rotação 3D: abre ao tocar num café do mapa */
+(function(){
+  const CAFES=window.CAFES; if(!CAFES) return;
+  const NC=CAFES.length, P=n=>String(n).padStart(2,"0");
+  const box=document.createElement("div"); box.className="tkbox"; box.hidden=true;
+  box.innerHTML=`<div class="tkwrap" role="dialog" aria-modal="true" aria-label="café"><button class="tkx" type="button" aria-label="fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><div class="tk"></div></div>`;
+  document.body.appendChild(box);
+  const wrap=box.querySelector(".tkwrap"), tk=box.querySelector(".tk");
+  function bars(seed){let r=seed*9301+49297,h="";for(let i=0;i<58;i++){r=(r*9301+49297)%233280;const w=1+Math.floor(r/233280*4);h+=`<i style="width:${w}px"></i>`}return h}
+  function fill(i){
+    const c=CAFES[i], kind=i===0?"partida":i===NC-1?"chegada":"paragem";
+    tk.innerHTML=`<div class="art"><span class="ring"></span><span class="num">${P(i+1)}</span></div>
+      <div class="ttl"></div><div class="sep"></div>
+      <div class="rows"><div><small>especialidade</small><b class="esp"></b></div><div><small>dia</small><b>19.12</b></div></div>
+      <div class="sep"></div><div class="rate"><small>a tua nota</small><div class="stars" role="radiogroup" aria-label="dá uma nota a este café">${[1,2,3,4,5].map(n=>`<button type="button" role="radio" data-n="${n}" aria-label="${n} estrela${n>1?"s":""}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></svg></button>`).join("")}</div></div>
+      <a class="go" target="_blank" rel="noopener"><span class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/></svg></span><span class="gt">abrir no google maps</span><span class="ar" aria-hidden="true"></span></a><span class="shine"></span>`;
+    tk.querySelector(".ttl").textContent=c.n.toLowerCase();
+    tk.querySelector(".esp").textContent=c.esp.toLowerCase();
+    const K="gineta.nota."+i; let v=0; try{v=+localStorage.getItem(K)||0}catch(e){}
+    const st=[...tk.querySelectorAll(".stars button")];
+    const paint=n=>st.forEach(b=>{const on=+b.dataset.n<=n;b.classList.toggle("on",on);b.setAttribute("aria-checked",+b.dataset.n===n)});
+    paint(v);
+    st.forEach(b=>b.addEventListener("click",()=>{v=+b.dataset.n;try{localStorage.setItem(K,v)}catch(e){}paint(v);b.classList.remove("pop");void b.offsetWidth;b.classList.add("pop")}));
+    const a=tk.querySelector(".go"); a.href=c.maps||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(c.n+" Valpedre Penafiel"));
+    wrap.setAttribute("aria-label",c.n);
+  }
+  function notch(){const sp=tk.querySelector(".sep");if(sp)tk.style.setProperty("--ny",(sp.offsetTop+1)+"px")}
+  let open=false, cur=-1;
+  window.openTicket=function(i){
+    cur=i; fill(i); box.hidden=false; notch(); tk.style.transform=""; 
+    wrap.classList.remove("out","idle","in"); void wrap.offsetWidth; wrap.classList.add("in");
+    requestAnimationFrame(()=>box.classList.add("on")); open=true;
+    clearTimeout(wrap._t); wrap._t=setTimeout(()=>{if(open){wrap.classList.remove("in");wrap.classList.add("idle")}},900);
+    box.querySelector(".tkx").focus({preventScroll:true});
+  };
+  function close(){
+    if(!open) return; open=false; clearTimeout(wrap._t);
+    wrap.classList.remove("in","idle"); wrap.classList.add("out"); box.classList.remove("on");
+    setTimeout(()=>{box.hidden=true;wrap.classList.remove("out")},340);
+    document.querySelectorAll("#chips .cafe,#stops .cafe").forEach(b=>b.setAttribute("aria-pressed","false"));
+  }
+  box.addEventListener("click",e=>{if(e.target===box||e.target.closest(".tkx"))close()});
+  addEventListener("keydown",e=>{if(e.key==="Escape")close()});
 })();
 </script>
 </body>
